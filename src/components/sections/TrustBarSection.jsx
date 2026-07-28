@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import img1 from '../../assets/images/hamim.png';
 import img2 from '../../assets/images/mahadi.jpg';
-
 const STATS = [
   { value: 240, suffix: '+', label: 'Channels Managed', color: '#4da6ff' },
   { value: 312, suffix: '%', label: 'Avg Revenue Growth', color: '#00d4ff' },
@@ -78,30 +76,26 @@ function Stat({ value, suffix, label, color }) {
           textShadow: `0 0 20px ${color}55`,
         }}
       >
-        {label === 'Channels Managed' ? (
-          <img
-            src={img1}
-            alt="Hamim"
-            className="w-16 h-16 rounded-full object-cover mx-auto border-2 border-blue-500"
-          />
-        ) : label === 'Views Generated' ? (
-          <img
-            src={img2}
-            alt="Mahadi"
-            className="w-16 h-16 rounded-full object-cover mx-auto border-2 border-yellow-400"
-          />
-        ) : (
-          <>
-            {count}
-            {suffix}
-          </>
-        )}
-      </span>
-
-      <span className="font-mono text-[10px] uppercase tracking-widest text-ink-muted">
-        {label}
-      </span>
-    </div>
+  {label === 'Channels Managed' ? (
+    <img
+      src={img2}
+      alt="Mahadi"
+      className="w-16 h-16 rounded-full object-cover mx-auto border-2 border-blue-500"
+   />
+  ) : label === 'Views Generated' ? (
+    <img
+      src={img2}
+      alt="Mahadi"
+      className="w-16 h-16 rounded-full object-cover mx-auto border-2 border-yellow-400"
+    />
+  ) : (
+    <>
+      {count}
+      {suffix}
+    </>
+  )}
+</span>
+</div>
   );
 }
 
@@ -114,7 +108,7 @@ export default function TrustBarSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,102,255,0.04) 0%, transparent 70%)',
+           'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,102,255,0.04) 0%, transparent 70%)',
         }}
       />
 
