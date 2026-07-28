@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* GLOBAL THEME TOKENS (CSS custom properties — mirrors tailwind.config.js
+   so raw hex values are available to inline styles, Three.js materials
+   passed via props, and GSAP color tweens outside the Tailwind pipeline) */
+/* ------------------------------------------------------------------ */
+:root {
+  /* surfaces */
+  --color-space: #050a18;
+  --color-space-mid: #0d1b3e;
+  --color-space-panel: #080f22;
+
+  /* borders */
+  --color-line: #1e3a6e;
+  --color-line-soft: rgba(255, 255, 255, 0.07);
+
+  /* neon accents */
+  --color-neon-blue: #0066ff;
+  --color-neon-blue-light: #4da6ff;
+  --color-neon-cyan: #00d4ff;
+  --color-neon-purple: #7c3aed;
+  --color-neon-purple-light: #a78bfa;
+  --color-neon-amber: #fbbf24;
+  --color-neon-green: #34d399;
+  --color-neon-red: #f43f5e;
+  --color-whatsapp: #25d366;
+
+  /* text */
+  --color-ink-primary: #e2e8f0;
+  --color-ink-secondary: #64748b;
+  --color-ink-muted: #475569;
+
+  /* type */
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* motion */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/* BASE / RESET                                                       */
+/* ------------------------------------------------------------------ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-space);
+  color: var(--color-ink-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(0, 102, 255, 0.35);
+  color: #fff;
+}
+
+/* Hide scrollbars on horizontally-scrolling rows (marquees, filter bars) */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Respect reduced motion globally, per blueprint accessibility spec */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* TYPOGRAPHY SCALE                                                    */
+/* Display face (Orbitron) is reserved for hero headline / signature   */
+/* moments only — never body copy. Inter carries all reading text.     */
+/* JetBrains Mono marks data, stats, and system/tech labels.           */
+/* ------------------------------------------------------------------ */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-ink-primary);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.05;
+}
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.15;
+}
+h3 {
+  font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+  line-height: 1.3;
+}
+h4 {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: var(--font-body);
+  color: var(--color-ink-secondary);
+}
+
+.font-data {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------------ */
+/* UTILITY CLASSES                                                     */
+/* Reusable primitives derived from the approved blueprint components  */
+/* (glass cards, tags, pills, neon dividers) so section components in  */
+/* later phases compose from a single shared vocabulary.               */
+/* ------------------------------------------------------------------ */
+
+/* Layout */
+.container-shell {
+  @apply mx-auto w-full max-w-7xl px-6 md:px-10;
+}
+
+.section-padding {
+  @apply py-20 md:py-28;
+}
+
+/* Glassmorphism surfaces */
+.glass-panel {
+  @apply rounded-card border border-white/[0.07] bg-white/[0.025] backdrop-blur-md;
+}
+
+.glass-card {
+  @apply glass-panel p-4 transition-colors duration-300;
+}
+
+.glass-card-blue {
+  @apply glass-card border-neon-blue/30 bg-neon-blue/5;
+}
+.glass-card-purple {
+  @apply glass-card border-neon-purple/30 bg-neon-purple/5;
+}
+.glass-card-amber {
+  @apply glass-card border-neon-amber/30 bg-neon-amber/[0.04];
+}
+.glass-card-green {
+  @apply glass-card border-neon-green/30 bg-neon-green/[0.04];
+}
+
+/* Gradient hero heading */
+.text-gradient-hero {
+  @apply bg-text-gradient-hero bg-clip-text text-transparent;
+}
+
+/* Section eyebrow / kicker label, mirrors blueprint h3 style */
+.kicker {
+  @apply mb-2 border-l-2 border-neon-blue pl-2 font-mono text-xs font-bold uppercase tracking-[0.2em] text-neon-blue-light;
+}
+.kicker-purple {
+  @apply border-neon-purple text-neon-purple-light;
+}
+.kicker-amber {
+  @apply border-neon-amber-deep text-neon-amber;
+}
+.kicker-green {
+  @apply border-neon-green-deep text-neon-green;
+}
+
+/* Tag / pill badges */
+.badge-pill {
+  @apply inline-block rounded-pill border px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest;
+}
+.badge-blue {
+  @apply badge-pill border-neon-blue/30 bg-neon-blue/10 text-neon-blue-light;
+}
+.badge-cyan {
+  @apply badge-pill border-neon-cyan/30 bg-neon-cyan/10 text-neon-cyan;
+}
+
+/* Neon divider */
+.neon-divider {
+  @apply h-px w-full;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 102, 255, 0.27),
+    rgba(124, 58, 237, 0.27),
+    transparent
+  );
+}
+
+/* Buttons */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cta-gradient px-7 py-3.5 font-body text-sm font-bold text-white shadow-neon-blue transition-opacity duration-200 hover:opacity-90;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-neon-purple-light/40 px-7 py-3.5 font-body text-sm font-bold text-neon-purple-light transition-colors duration-200 hover:bg-neon-purple/10;
+}
+
+/* Neon focus ring — keyboard accessibility, applied globally */
+.focus-neon:focus-visible {
+  outline: 2px solid var(--color-neon-blue-light);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/* PHASE 5 ADDITIONS — form inputs (Contact form, Newsletter, ROI calc) */
+/* Appended only; no existing rules modified.                          */
+/* ------------------------------------------------------------------ */
+.form-input {
+  @apply w-full rounded-lg bg-white/[0.03] border border-white/10 px-4 py-3 text-sm text-ink-primary placeholder:text-ink-muted transition-colors duration-200 focus:outline-none focus:border-neon-blue-light;
+}
