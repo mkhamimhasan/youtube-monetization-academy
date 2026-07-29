@@ -72,7 +72,9 @@ export default function HeroSection() {
 
     const scene  = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 100);
-    camera.position.set(0, 0, 8.5);
+    // Pulled back further so the globe reads as a background accent,
+    // not something that collides with the badge/buttons above it.
+    camera.position.set(0, 0, 10.5);
 
     /* --- Lights (drive the emissive core + rim glow) --- */
     scene.add(new THREE.AmbientLight(0x552200, 1.2));
@@ -84,15 +86,18 @@ export default function HeroSection() {
     scene.add(rimLight);
 
     const globeGroup = new THREE.Group();
+    // Nudge the whole globe down slightly so its top clears the badge
+    // and its bottom clears the CTA buttons.
+    globeGroup.position.set(0, -0.35, 0);
     scene.add(globeGroup);
-    const GLOBE_R = 1.7;
+    const GLOBE_R = 1.3;
 
     /* --- Solid emissive core (the "sun") --- */
     const coreGeo = new THREE.SphereGeometry(GLOBE_R, 64, 64);
     const coreMat = new THREE.MeshStandardMaterial({
       color: 0x220400,
       emissive: new THREE.Color(0xff8c00),
-      emissiveIntensity: 0.45,
+      emissiveIntensity: 0.32,
       roughness: 0.55,
       metalness: 0.1,
       transparent: true,
@@ -100,13 +105,15 @@ export default function HeroSection() {
     });
     globeGroup.add(new THREE.Mesh(coreGeo, coreMat));
 
-    /* --- Bright hotspot (fixed on the sphere, rotates with it — the "sun flare" patch) --- */
-    const hotspotGeo = new THREE.SphereGeometry(GLOBE_R * 0.32, 24, 24);
+    /* --- Bright hotspot (fixed on the sphere, rotates with it — the "sun flare" patch) ---
+       Toned way down: smaller, dimmer, and no additive blending so it no
+       longer reads as a separate white "moon" next to the globe. */
+    const hotspotGeo = new THREE.SphereGeometry(GLOBE_R * 0.22, 24, 24);
     const hotspotMat = new THREE.MeshBasicMaterial({
-      color: 0xffffcc,
+      color: 0xffcf8a,
       transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.35,
+      blending: THREE.NormalBlending,
       depthWrite: false,
     });
     const hotspot = new THREE.Mesh(hotspotGeo, hotspotMat);
@@ -169,7 +176,7 @@ export default function HeroSection() {
       const mesh = new THREE.Mesh(tubeGeo, tubeMat);
       mesh.rotation.x = tiltX;
       mesh.rotation.z = tiltZ;
-      scene.add(mesh);
+      globeGroup.add(mesh);
       return { mesh, curve };
     }
     const orbitRings = [
@@ -180,7 +187,7 @@ export default function HeroSection() {
     const orbitEmbers = orbitRings.map((ring) => {
       const mat = new THREE.MeshBasicMaterial({ color: 0xffee00, transparent: true, opacity: 0.95 });
       const mesh = new THREE.Mesh(orbitEmberGeo, mat);
-      scene.add(mesh);
+      globeGroup.add(mesh);
       return { ring, mesh, progress: Math.random(), speed: 0.05 + Math.random() * 0.04 };
     });
 
@@ -244,10 +251,12 @@ export default function HeroSection() {
     });
     scene.add(new THREE.Points(pGeo, pMat));
 
-    /* --- Bloom post-processing (the glow bleed that makes it look like a sun) --- */
+    /* --- Bloom post-processing (the glow bleed that makes it look like a sun) ---
+       Strength and threshold pulled back so the glow stays contained near
+       the globe instead of washing the whole screen orange. */
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.9, 0.55, 0.28);
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.5, 0.5, 0.65);
     composer.addPass(bloomPass);
 
     /* --- Mouse parallax --- */
@@ -444,13 +453,29 @@ export default function HeroSection() {
         </svg>
       </div>
 
-      {/* L4 — Three.js globe */}
+      {/* L4 — Three.js globe.
+          Constrained to a centered box (instead of full-screen inset-0) so it
+          reads as one accent element behind the content, not a screen-filling
+          shape that swallows the badge and buttons. */}
       <div
-        className="hero-canvas-wrap absolute inset-0 pointer-events-none"
+        className="hero-canvas-wrap absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{ opacity: 0 }}
       >
-        <canvas ref={canvasRef} className="w-full h-full" />
+        <div className="w-[560px] h-[560px] max-w-[85vw] max-h-[60vh]">
+          <canvas ref={canvasRef} className="w-full h-full" />
+        </div>
       </div>
+
+      {/* L4.5 — Radial dark vignette behind the text column so the badge,
+          headline and buttons stay readable no matter how bright the globe
+          gets underneath them. */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[15]"
+        style={{
+          background:
+            'radial-gradient(ellipse 55% 60% at 50% 48%, rgba(4,6,14,0.55) 0%, rgba(4,6,14,0.15) 55%, transparent 75%)',
+        }}
+      />
 
       {/* L5 — Floating holo panels */}
       <div className="absolute inset-0 pointer-events-none z-10">
@@ -506,10 +531,11 @@ export default function HeroSection() {
           <span
             className="badge-cyan"
             style={{
-              color: '#ffb347',
-              borderColor: 'rgba(255,140,0,0.4)',
-              background: 'rgba(255,90,0,0.08)',
-              boxShadow: '0 0 16px rgba(255,90,0,0.25)',
+              color: '#ffcf8a',
+              borderColor: 'rgba(255,140,0,0.5)',
+              background: 'rgba(8,4,2,0.65)',
+              backdropFilter: 'blur(8px)',
+              boxShadow: '0 0 16px rgba(255,90,0,0.25), inset 0 0 12px rgba(0,0,0,0.4)',
               textShadow: '0 0 8px rgba(255,140,0,0.5)',
             }}
           >
@@ -550,7 +576,8 @@ export default function HeroSection() {
             className="btn-primary text-sm px-8 py-4 font-display tracking-wider"
             style={{
               background: 'linear-gradient(135deg, #ff9500 0%, #ff3d00 100%)',
-              boxShadow: '0 0 28px rgba(255,90,0,0.45)',
+              boxShadow: '0 0 28px rgba(255,90,0,0.45), 0 4px 18px rgba(0,0,0,0.5)',
+              border: '1px solid rgba(255,220,180,0.35)',
             }}
           >
             🚀 Get Free Revenue Audit
@@ -561,6 +588,8 @@ export default function HeroSection() {
             style={{
               borderColor: 'rgba(255,140,0,0.4)',
               color: '#ffb347',
+              background: 'rgba(8,4,2,0.55)',
+              backdropFilter: 'blur(8px)',
             }}
           >
             📊 See Client Results
