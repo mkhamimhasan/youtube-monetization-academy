@@ -454,16 +454,16 @@ export default function HeroSection() {
       </div>
 
       {/* L4 — Three.js globe.
-          Constrained to a centered box (instead of full-screen inset-0) so it
-          reads as one accent element behind the content, not a screen-filling
-          shape that swallows the badge and buttons. */}
+          Full-bleed canvas again (a constrained box left a visible black
+          square, since the bloom composer renders an opaque background).
+          The globe itself is kept small and set back via camera distance /
+          radius inside the effect, so it reads as a background accent
+          without a hard edge around it. */}
       <div
-        className="hero-canvas-wrap absolute inset-0 flex items-center justify-center pointer-events-none"
+        className="hero-canvas-wrap absolute inset-0 pointer-events-none"
         style={{ opacity: 0 }}
       >
-        <div className="w-[560px] h-[560px] max-w-[85vw] max-h-[60vh]">
-          <canvas ref={canvasRef} className="w-full h-full" />
-        </div>
+        <canvas ref={canvasRef} className="w-full h-full" />
       </div>
 
       {/* L4.5 — Radial dark vignette behind the text column so the badge,
