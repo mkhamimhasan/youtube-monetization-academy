@@ -57,7 +57,7 @@ export default function Navbar() {
             <Zap className="h-4 w-4 text-white" />
           </span>
           <span className="font-display text-sm font-black tracking-wider text-ink-primary">
-            YTA<span className="text-neon-blue-light">.</span>AGENCY
+            MK<span className="text-neon-blue-light"> </span>Towfiq
           </span>
         </Link>
 
