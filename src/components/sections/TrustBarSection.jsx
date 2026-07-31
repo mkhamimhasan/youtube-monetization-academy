@@ -1,16 +1,17 @@
 ﻿import { useEffect, useRef, useState } from 'react';
 
 const STATS = [
-  { value: 240, suffix: '+', label: 'Channels Managed', color: '#4da6ff' },
-  { value: 312, suffix: '%', label: 'Avg Revenue Growth', color: '#00d4ff' },
-  { value: 4.8, suffix: 'x', label: 'CPM Multiplier', color: '#a78bfa' },
-  { value: 98, suffix: '%', label: 'Client Retention', color: '#34d399' },
-  { value: 12, suffix: 'M+', label: 'Views Generated', color: '#fbbf24' },
+  { value: 100, suffix: '%', label: 'Custom Design', color: '#4da6ff', useOrb: true },
+  { value: 48, suffix: 'h', label: 'Avg. Response Time', color: '#00d4ff' },
+  { value: 0, suffix: '', label: 'Templates Used', color: '#a78bfa' },
+  { value: 100, suffix: '%', label: 'Revision Support', color: '#34d399' },
+  { value: 1, suffix: 'on1', label: 'Direct Communication', color: '#fbbf24', useOrb: true },
 ];
 
-const LOGOS = [
-  'MrBeast Labs','TechCreator Co.','Studio Nova','Apex Media','Creator HQ',
-  'Neon Studios','Viral Works','Growth Guild','Pixel Agency','Stream Kings','Revenue Rush','View Masters',
+const SKILLS = [
+  'Responsive Design','SEO Friendly','React & Next.js','Landing Pages',
+  'E-commerce Sites','Short-Form Cuts','Color Grading','Motion Graphics',
+  'Brand Identity','Fast Turnaround','Clean Code','Pixel-Perfect UI',
 ];
 
 function useCounter(target, decimals = 0, duration = 2000) {
@@ -49,15 +50,14 @@ function GlowOrb({ color }) {
   );
 }
 
-function Stat({ value, suffix, label, color }) {
+function Stat({ value, suffix, label, color, useOrb }) {
   const isDecimal = !Number.isInteger(value);
   const { count, ref } = useCounter(value, isDecimal ? 1 : 0);
-  const useOrb = label === 'Channels Managed' || label === 'Views Generated';
   return (
     <div ref={ref} className="flex flex-col items-center text-center px-4">
       {useOrb && <div className="mb-2"><GlowOrb color={color} /></div>}
       <span className="font-display text-3xl md:text-4xl font-black mb-1" style={{ color, textShadow: `0 0 20px ${color}55` }}>{count}{suffix}</span>
-      <span className="text-xs md:text-sm text-white/60 font-mono tracking-wide">{label}</span>
+      <span className="text-xs md:t-text-white/60 font-mono tracking-wide">{label}</span>
     </div>
   );
 }
@@ -65,11 +65,14 @@ function Stat({ value, suffix, label, color }) {
 const COLORS = ['#4da6ff','#00d4ff','#a78bfa','#34d399','#fbbf24','#f87171'];
 
 export default function TrustBarSection() {
-  const doubled = [...LOGOS, ...LOGOS];
+  const doubled = [...SKILLS, ...SKILLS];
   return (
     <section className="relative border-y border-line py-12 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,102,255,0.04) 0%, transparent 70%)' }} />
       <div className="container-shell relative z-10">
+        <p className="text-center font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted mb-8">
+          What You Can Expect
+        </p>
         <div className="flex flex-wrap justify-center gap-8 md:gap-0 md:justify-between mb-10">
           {STATS.map((s) => (<Stat key={s.label} {...s} />))}
         </div>

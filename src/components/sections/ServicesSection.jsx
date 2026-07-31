@@ -4,37 +4,37 @@ import { ROUTES } from '@/config/routes';
 
 const SERVICES = [
   {
-    icon: '🎯',
-    title: 'CPM Optimization',
-    desc: 'We reverse-engineer the YouTube algorithm to maximize your cost-per-mille — targeting high-value ad categories and seasonal revenue spikes.',
-    tags: ['Ad Revenue', 'Algorithm', 'Analytics'],
+    icon: '🌐',
+    title: 'Website Design & Development',
+    desc: 'Custom-built websites — from simple landing pages to full business sites — designed to load fast, look sharp, and work on every device.',
+    tags: ['Responsive', 'React / Next.js', 'SEO Ready'],
     accent: '#4da6ff',
     border: 'rgba(0,102,255,0.3)',
     bg: 'rgba(0,102,255,0.05)',
   },
   {
-    icon: '🤖',
-    title: 'AI Content Strategy',
-    desc: 'Proprietary AI tools analyze trending topics, competitor gaps, and audience psychology to generate content calendars that convert.',
-    tags: ['AI Tools', 'Content Plan', 'SEO'],
+    icon: '🎬',
+    title: 'Video Editing',
+    desc: 'Clean, engaging edits for YouTube, social media, ads, and brand content — pacing, sound design, and captions handled end-to-end.',
+    tags: ['YouTube', 'Reels/Shorts', 'Ads'],
     accent: '#a78bfa',
     border: 'rgba(124,58,237,0.3)',
     bg: 'rgba(124,58,237,0.05)',
   },
   {
-    icon: '📈',
-    title: 'Monetization Systems',
-    desc: 'Beyond AdSense — channel memberships, Super Thanks, brand deals, course funnels, and affiliate stacks built into every video.',
-    tags: ['Multi-Revenue', 'Brand Deals', 'Memberships'],
+    icon: '🎨',
+    title: 'Motion Graphics & Color Grading',
+    desc: 'Polished intros, lower-thirds, transitions, and cinematic color grading that give every project a professional, consistent look.',
+    tags: ['Motion Design', 'Color Grade', 'Branding'],
     accent: '#34d399',
     border: 'rgba(52,211,153,0.3)',
     bg: 'rgba(52,211,153,0.04)',
   },
   {
-    icon: '🎬',
-    title: 'Thumbnail & Title Lab',
-    desc: 'A/B tested thumbnail systems and psychological title frameworks that deliver 35%+ CTR uplift within 90 days.',
-    tags: ['CTR', 'A/B Testing', 'Design'],
+    icon: '🛒',
+    title: 'Landing Pages & E-commerce',
+    desc: 'Conversion-focused landing pages and online stores built to turn visitors into customers, with clean checkout and fast performance.',
+    tags: ['Conversion', 'E-commerce', 'UI/UX'],
     accent: '#fbbf24',
     border: 'rgba(251,191,36,0.3)',
     bg: 'rgba(251,191,36,0.04)',
@@ -119,10 +119,10 @@ export default function ServicesSection() {
         <div className="text-center mb-12">
           <p className="kicker justify-center inline-flex mb-2">⚙️ What We Do</p>
           <h2 className="text-gradient-hero mb-4">
-            Full-Stack YouTube Growth
+            Websites & Videos, Done Right
           </h2>
           <p className="text-ink-secondary max-w-xl mx-auto text-sm leading-relaxed">
-            Every lever that drives YouTube revenue — pulled together into one integrated system, managed by specialists who live inside the algorithm.
+            From custom-built websites to polished video edits — everything your brand needs to look professional online, handled under one roof.
           </p>
         </div>
 

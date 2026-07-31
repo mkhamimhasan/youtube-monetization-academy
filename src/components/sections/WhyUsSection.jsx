@@ -2,34 +2,34 @@ import { useEffect, useRef } from 'react';
 
 const USPS = [
   {
-    icon: '🧠',
-    title: 'Algorithm-Native Strategy',
-    desc: "We don't guess — we reverse-engineer YouTube's recommendation engine using first-party data and 240+ channel experiments to find what actually moves revenue.",
-    stat: '3.2× faster growth',
+    icon: '🎯',
+    title: 'Custom-Built, Never Templated',
+    desc: "Every website and video is built from scratch around your brand — no drag-and-drop templates, no cookie-cutter designs.",
+    stat: '100% Custom',
   },
   {
-    icon: '📡',
-    title: 'Real-Time Revenue Intelligence',
-    desc: 'Proprietary dashboard tracks CPM fluctuations, ad category bids, and seasonal demand curves — so we capitalize on revenue windows before your competitors notice them.',
-    stat: '+$2.4 RPM average',
-  },
-  {
-    icon: '🤝',
-    title: 'Brand Deal Pipeline Included',
-    desc: "Every package includes access to our brand partner network — we don't just optimize AdSense, we open direct sponsorship revenue streams averaging 4–8× AdSense rates.",
-    stat: '$15K avg first deal',
+    icon: '💬',
+    title: 'You Talk Directly to Me',
+    desc: 'No account managers, no outsourced teams. You work directly with the person building your project, start to finish.',
+    stat: 'Direct Access',
   },
   {
     icon: '⚡',
-    title: '90-Day Revenue Guarantee',
-    desc: "If your revenue hasn't grown by at least 40% in 90 days, you don't pay for month 4. We put our fee on the line because our system consistently delivers.",
-    stat: '98% hit target',
+    title: 'Fast, Transparent Turnaround',
+    desc: "Clear timelines set before we start, with regular check-ins so you always know exactly where your project stands.",
+    stat: 'Clear Timelines',
   },
   {
-    icon: '🌐',
-    title: 'Global Creator Roster',
-    desc: 'Managing 240+ channels across 28 niches and 14 languages. Our cross-channel insights surface winning formats weeks before they trend in your niche.',
-    stat: '28 niches mastered',
+    icon: '🔁',
+    title: 'Revisions Until You\'re Happy',
+    desc: "We refine the design or edit together — your feedback shapes the final result, not just a one-and-done delivery.",
+    stat: 'Unlimited Revisions',
+  },
+  {
+    icon: '🌱',
+    title: 'Growing With Every Project',
+    desc: "As a new studio, every client gets full attention and effort — your project isn't just another number on a client list.",
+    stat: 'Full Attention',
   },
 ];
 
@@ -108,19 +108,19 @@ export default function WhyUsSection() {
           <div>
             <p className="kicker-purple mb-3">✦ Why Choose Us</p>
             <h2 className="mb-4">
-              <span className="text-gradient-hero">The Only Agency</span>
+              <span className="text-gradient-hero">Built Around You,</span>
               <br />
-              <span className="text-ink-primary">Built for Scale</span>
+              <span className="text-ink-primary">Not a Template</span>
             </h2>
             <p className="text-ink-secondary text-sm leading-relaxed max-w-md mb-8">
-              Most agencies optimize for views. We optimize for revenue per viewer — a fundamentally different discipline that changes every decision from thumbnail to end screen.
+              Most agencies push you through a factory line. We take the time to understand your brand and build something that actually fits — websites and videos that feel custom because they are.
             </p>
 
             <a
               href="/#apply"
               className="btn-primary inline-flex text-sm px-7 py-3.5"
             >
-              Apply for Free Audit →
+              Get a Free Quote →
             </a>
           </div>
 
