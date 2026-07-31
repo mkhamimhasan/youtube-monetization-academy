@@ -21,7 +21,7 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppButton />
+     {/* <WhatsAppButton /> */}
     </div>
   );
 }
