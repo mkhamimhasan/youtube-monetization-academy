@@ -4,25 +4,23 @@ import BeforeAfterSlider from './BeforeAfterSlider';
 
 const FILTERS = [
   { key: 'all', label: 'All' },
-  { key: 'ai-video', label: 'AI Videos' },
-  { key: 'thumbnail', label: 'Thumbnails' },
-  { key: 'shorts', label: 'Shorts' },
+  { key: 'website', label: 'Websites' },
+  { key: 'video', label: 'Video Editing' },
+  { key: 'brand', label: 'Brand Identity' },
   { key: 'before-after', label: 'Before & After' },
-  { key: 'live', label: 'Live Projects' },
 ];
 
 const ITEMS = [
-  { id: 1, type: 'ai-video', title: 'AI Explainer — Personal Finance', tag: 'AI Video', accent: '#4da6ff', seed: 'aivid1', meta: '2.1M views · AI voice + b-roll pipeline' },
-  { id: 2, type: 'ai-video', title: 'AI Voiceover Series — Tech News', tag: 'AI Video', accent: '#4da6ff', seed: 'aivid2', meta: '890K views · Daily automated upload' },
-  { id: 3, type: 'thumbnail', title: 'A/B Test Winner — DIY Renovation', tag: 'Thumbnail', accent: '#fbbf24', seed: 'thumb1', meta: 'CTR 4.1% → 9.8%' },
-  { id: 4, type: 'thumbnail', title: 'A/B Test Winner — Tech Review', tag: 'Thumbnail', accent: '#fbbf24', seed: 'thumb2', meta: 'CTR 3.4% → 7.6%' },
-  { id: 5, type: 'thumbnail', title: 'A/B Test Winner — Finance Tips', tag: 'Thumbnail', accent: '#fbbf24', seed: 'thumb3', meta: 'CTR 2.9% → 8.2%' },
-  { id: 6, type: 'shorts', title: 'Shorts Growth Sprint — Fitness', tag: 'Shorts', accent: '#00d4ff', seed: 'short1', meta: '14M views in 30 days' },
-  { id: 7, type: 'shorts', title: 'Shorts Growth Sprint — Comedy', tag: 'Shorts', accent: '#00d4ff', seed: 'short2', meta: '9.2M views in 30 days' },
-  { id: 8, type: 'before-after', title: 'Revenue Transformation — Finance Flux', tag: 'Before & After', accent: '#34d399', slider: { before: '$1,200/mo', after: '$18,400/mo', metric: 'RPM up 4.1× in 6 months' } },
-  { id: 9, type: 'before-after', title: 'Revenue Transformation — TechByte', tag: 'Before & After', accent: '#34d399', slider: { before: '$5,100/mo', after: '$34,700/mo', metric: 'RPM up 3.8× in 5 months' } },
-  { id: 10, type: 'live', title: 'HomeCraft Daily — Optimization Sprint', tag: 'Live Project', accent: '#a78bfa', seed: 'live1', meta: 'Week 6 of 12 · +210% MTD', live: true },
-  { id: 11, type: 'live', title: 'Studio Nova — Brand Deal Rollout', tag: 'Live Project', accent: '#a78bfa', seed: 'live2', meta: 'Week 3 of 12 · 2 deals closed', live: true },
+  { id: 1, type: 'website', title: 'Portfolio Site — Creative Studio', tag: 'Website', accent: '#4da6ff', seed: 'web1', meta: 'Custom design · Responsive build' },
+  { id: 2, type: 'website', title: 'E-commerce Landing — Skincare Brand', tag: 'Website', accent: '#4da6ff', seed: 'web2', meta: 'Conversion-focused layout' },
+  { id: 3, type: 'website', title: 'SaaS Landing Page — Analytics Tool', tag: 'Website', accent: '#4da6ff', seed: 'web3', meta: 'Modern UI · Fast load' },
+  { id: 4, type: 'video', title: 'Product Launch Video — Tech Gadget', tag: 'Video Editing', accent: '#fbbf24', seed: 'vid1', meta: 'Motion graphics · Sound design' },
+  { id: 5, type: 'video', title: 'Brand Story Reel — Fashion Label', tag: 'Video Editing', accent: '#fbbf24', seed: 'vid2', meta: 'Color grading · Pacing edit' },
+  { id: 6, type: 'video', title: 'Event Highlight Edit — Corporate Summit', tag: 'Video Editing', accent: '#fbbf24', seed: 'vid3', meta: 'Multi-cam sync · Captions' },
+  { id: 7, type: 'brand', title: 'Visual Identity — Coffee Roastery', tag: 'Brand Identity', accent: '#a78bfa', seed: 'brand1', meta: 'Logo · Color system · Guidelines' },
+  { id: 8, type: 'brand', title: 'Brand Refresh — Fitness App', tag: 'Brand Identity', accent: '#a78bfa', seed: 'brand2', meta: 'Logo redesign · Typography' },
+  { id: 9, type: 'before-after', title: 'Website Redesign — Local Bakery', tag: 'Before & After', accent: '#34d399', slider: { before: 'Old Site', after: 'New Site', metric: 'Full redesign · Mobile-first' } },
+  { id: 10, type: 'before-after', title: 'Raw Footage → Final Cut', tag: 'Before & After', accent: '#34d399', slider: { before: 'Raw Footage', after: 'Edited Version', metric: 'Color grade · Sound mix · Pacing' } },
 ];
 
 function GridCard({ item }) {
@@ -57,8 +55,8 @@ function GridCard({ item }) {
       exit={{ opacity: 0, scale: 0.92 }}
       transition={{ duration: 0.35 }}
       className="glass-card overflow-hidden group"
-      style={{ borderColor: `${item.accent}30` }}
-      whileHover={{ y: -4 }}
+      style={{ borderColor: `${item.accent}30`, transformStyle: 'preserve-3d' }}
+      whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
     >
       <div className="relative h-40 -m-4 mb-3 overflow-hidden">
         <img
@@ -72,12 +70,6 @@ function GridCard({ item }) {
           className="absolute inset-0"
           style={{ background: `linear-gradient(180deg, transparent 40%, ${item.accent}22 100%)` }}
         />
-        {item.live && (
-          <span className="absolute top-2 right-2 flex items-center gap-1.5 font-mono text-[9px] font-bold px-2 py-0.5 rounded-full bg-black/60 text-neon-green">
-            <span className="h-1.5 w-1.5 rounded-full bg-neon-green animate-pulse-glow" />
-            LIVE
-          </span>
-        )}
         <span
           className="absolute top-2 left-2 font-mono text-[9px] font-bold px-2 py-0.5 rounded-full"
           style={{ color: item.accent, background: 'rgba(5,10,24,0.75)', border: `1px solid ${item.accent}50` }}
