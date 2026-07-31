@@ -33,8 +33,8 @@ export default function Navbar() {
 
   const linkBase =
     'font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200';
-  const linkActive  = 'text-neon-blue-light';
-  const linkInactive = 'text-ink-muted hover:text-ink-primary';
+  const linkActive  = 'text-cyan-400';
+  const linkInactive = 'text-white hover:text-cyan-400';
 
   return (
     <header
