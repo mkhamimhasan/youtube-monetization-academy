@@ -88,6 +88,8 @@ export default {
         marquee: 'marquee 25s linear infinite',
         float: 'float 6s ease-in-out infinite',
         'fade-up': 'fade-up 0.6s ease-out forwards',
+        'spin-slow': 'spin 4s linear infinite',
+        'ping-slow': 'ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
     },
   },

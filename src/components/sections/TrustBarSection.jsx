@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import img2 from '../../assets/images/mahadi.jpg';
+
 const STATS = [
   { value: 240, suffix: '+', label: 'Channels Managed', color: '#4da6ff' },
   { value: 312, suffix: '%', label: 'Avg Revenue Growth', color: '#00d4ff' },
@@ -63,12 +63,53 @@ function useCounter(target, decimals = 0, duration = 2000) {
   return { count, ref };
 }
 
+// Modern animated 3D-style glowing orb — replaces the old profile images
+function GlowOrb({ color }) {
+  return (
+    <div
+      className="relative w-16 h-16 mx-auto"
+      style={{ filter: `drop-shadow(0 0 14px ${color}99)` }}
+    >
+      {/* outer rotating ring */}
+      <div
+        className="absolute inset-0 rounded-full animate-spin-slow"
+        style={{
+          border: `1.5px solid ${color}55`,
+          borderTopColor: color,
+        }}
+      />
+
+      {/* pulsing halo */}
+      <div
+        className="absolute inset-1 rounded-full animate-ping-slow"
+        style={{ background: `${color}22` }}
+      />
+
+      {/* 3D sphere core */}
+      <div
+        className="absolute inset-2 rounded-full"
+        style={{
+          background: `radial-gradient(circle at 32% 28%, #ffffff 0%, ${color} 35%, #050a18 100%)`,
+          boxShadow: `inset -4px -6px 10px rgba(0,0,0,0.55), inset 3px 3px 6px rgba(255,255,255,0.35), 0 0 18px ${color}aa`,
+        }}
+      />
+    </div>
+  );
+}
+
 function Stat({ value, suffix, label, color }) {
   const isDecimal = !Number.isInteger(value);
   const { count, ref } = useCounter(value, isDecimal ? 1 : 0);
+  const useOrb = label === 'Channels Managed' || label === 'Views Generated';
 
   return (
     <div ref={ref} className="flex flex-col items-center text-center px-4">
+      {useOrb && (
+        <div className="mb-2">
+          <GlowOrb color={color} />
+        </div>
+      )}
+
       <span
         className="font-display text-3xl md:text-4xl font-black mb-1"
         style={{
@@ -76,26 +117,14 @@ function Stat({ value, suffix, label, color }) {
           textShadow: `0 0 20px ${color}55`,
         }}
       >
-  {label === 'Channels Managed' ? (
-    <img
-      src={img2}
-      alt="Mahadi"
-      className="w-16 h-16 rounded-full object-cover mx-auto border-2 border-blue-500"
-   />
-  ) : label === 'Views Generated' ? (
-    <img
-      src={img2}
-      alt="Mahadi"
-      className="w-16 h-16 rounded-full object-cover mx-auto border-2 border-yellow-400"
-    />
-  ) : (
-    <>
-      {count}
-      {suffix}
-    </>
-  )}
-</span>
-</div>
+        {count}
+        {suffix}
+      </span>
+
+      <span className="text-xs md:text-sm text-ink-muted font-mono tracking-wide">
+        {label}
+      </span>
+    </div>
   );
 }
 
