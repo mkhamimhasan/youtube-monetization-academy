@@ -72,7 +72,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-ink-secondary text-xs leading-relaxed mb-5 max-w-[220px]">
-              Premium YouTube monetization strategy for creators ready to scale revenue, CPM, and audience.
+              Premium website creation & video editing services — built to help your brand look sharp, load fast, and convert.
             </p>
 
             {/* Social row */}
@@ -84,7 +84,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className={`h-8 w-8 flex items-center justify-center rounded-lg glass-panel text-ink-muted transition-all duration-200 ${color} focus-neon`}
+                  className={`h-8 w-8 flex items-center justify-center rounded-lg glass-card text-ink-muted transition-all duration-200 ${color} focus-neon`}
                 >
                   <Icon className="h-3.5 w-3.5" />
                 </a>
@@ -117,10 +117,10 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hello@yta.agency"
+                  href="mailto:mkhamim1050100@gmail.com"
                   className="text-ink-secondary hover:text-neon-blue-light text-xs transition-colors duration-200 focus-neon rounded block"
                 >
-                  hello@yta.agency
+                  mkhamim1050100@gmail.com
                 </a>
               </li>
               <li>
@@ -142,7 +142,7 @@ export default function Footer() {
         <div className="neon-divider my-8" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="font-mono text-[10px] text-ink-muted">
-            © {year} YTA.Agency — All rights reserved.
+            © {year} MK Towfiq — All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (

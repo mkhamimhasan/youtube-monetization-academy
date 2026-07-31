@@ -42,7 +42,7 @@ export default function Navbar() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled
-          ? 'bg-space-panel/95 backdrop-blur-md border-b border-line'
+          ? 'glass-nav'
           : 'bg-transparent border-b border-transparent'
       )}
     >
@@ -81,7 +81,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <a
             href={ANCHORS.APPLY}
-            className="btn-primary text-xs px-5 py-2.5 focus-neon rounded-lg"
+            className="glass-button text-xs px-5 py-2.5 focus-neon rounded-lg text-white font-bold"
           >
             Free Audit →
           </a>
@@ -99,7 +99,7 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       {open && (
-        <div className="md:hidden bg-space-panel/98 backdrop-blur-md border-t border-line">
+        <div className="md:hidden glass-nav">
           <div className="container-shell flex flex-col gap-1 py-4">
             {NAV_LINKS.map(({ label, to }) => (
               <NavLink
@@ -121,7 +121,7 @@ export default function Navbar() {
             <a
               href={ANCHORS.APPLY}
               onClick={() => setOpen(false)}
-              className="btn-primary mt-3 text-xs w-full text-center py-3 focus-neon rounded-lg"
+              className="glass-button mt-3 text-xs w-full text-center py-3 focus-neon rounded-lg text-white font-bold"
             >
               Get Free Audit →
             </a>

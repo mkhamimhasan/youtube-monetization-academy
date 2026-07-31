@@ -492,11 +492,9 @@ export default function HeroSection() {
             }}
           >
             <div
-              className="glass-panel px-4 py-3 min-w-[140px]"
+              className="glass-card px-4 py-3 min-w-[140px]"
               style={{
                 borderColor: `${p.accent}40`,
-                background: `rgba(5,10,24,0.75)`,
-                backdropFilter: 'blur(12px)',
                 boxShadow: `0 0 20px ${p.accent}22`,
               }}
             >
@@ -529,17 +527,15 @@ export default function HeroSection() {
         {/* Eyebrow */}
         <div className="hero-text mb-6" style={{ opacity: 0, transform: 'translateY(24px)' }}>
           <span
-            className="badge-cyan"
+            className="badge-cyan glass-badge"
             style={{
               color: '#ffcf8a',
               borderColor: 'rgba(255,140,0,0.5)',
-              background: 'rgba(8,4,2,0.65)',
-              backdropFilter: 'blur(8px)',
               boxShadow: '0 0 16px rgba(255,90,0,0.25), inset 0 0 12px rgba(0,0,0,0.4)',
               textShadow: '0 0 8px rgba(255,140,0,0.5)',
             }}
           >
-            ⚡ Premium YouTube Growth Agency
+            ⚡ Website Creation & Video Editing
           </span>
         </div>
 
@@ -573,9 +569,9 @@ export default function HeroSection() {
         >
           <a
             href="/#apply"
-            className="btn-primary text-sm px-8 py-4 font-display tracking-wider"
+            className="glass-button text-sm px-8 py-4 font-display tracking-wider text-white"
             style={{
-              background: 'linear-gradient(135deg, #ff9500 0%, #ff3d00 100%)',
+              background: 'linear-gradient(135deg, rgba(255,149,0,0.85) 0%, rgba(255,61,0,0.85) 100%)',
               boxShadow: '0 0 28px rgba(255,90,0,0.45), 0 4px 18px rgba(0,0,0,0.5)',
               border: '1px solid rgba(255,220,180,0.35)',
             }}
@@ -584,12 +580,10 @@ export default function HeroSection() {
           </a>
           <a
             href="/#reviews"
-            className="btn-ghost text-sm px-8 py-4 font-display tracking-wider"
+            className="glass-badge text-sm px-8 py-4 font-display tracking-wider rounded-lg transition-all"
             style={{
               borderColor: 'rgba(255,140,0,0.4)',
               color: '#ffb347',
-              background: 'rgba(8,4,2,0.55)',
-              backdropFilter: 'blur(8px)',
             }}
           >
             📊 See Client Results
