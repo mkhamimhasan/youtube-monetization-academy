@@ -568,7 +568,7 @@ export default function HeroSection() {
           style={{ opacity: 0, transform: 'translateY(16px)' }}
         >
           
-            href="/#apply"
+            <a href="/#apply"
             className="glass-button text-sm px-8 py-4 font-display tracking-wider text-white"
             style={{
               background: 'linear-gradient(135deg, rgba(255,149,0,0.85) 0%, rgba(255,61,0,0.85) 100%)',
