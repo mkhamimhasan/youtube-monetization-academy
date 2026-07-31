@@ -346,9 +346,9 @@ export default function HeroSection() {
 
   /* ── Holo panel data ─────────────────────────────────────────────── */
   const panels = [
-    { label: 'Revenue Growth',  value: '+312%', sub: 'Avg. client uplift',  accent: '#ffb347' },
-    { label: 'CPM Increase',    value: '4.8×',  sub: '12-month average',    accent: '#ff6a00' },
-    { label: 'Channels Managed',value: '240+',  sub: 'Global creator roster',accent: '#ffee00' },
+    { label: 'Response Time',   value: '48h',    sub: 'Avg. turnaround',    accent: '#ffb347' },
+    { label: 'Revisions',       value: '3-∞',    sub: 'Depending on plan',  accent: '#ff6a00' },
+    { label: 'Communication',   value: '1-on-1', sub: 'Direct with you',    accent: '#ffee00' },
   ];
 
   return (
@@ -542,7 +542,7 @@ export default function HeroSection() {
         {/* Headline */}
         <div className="hero-text" style={{ opacity: 0, transform: 'translateY(24px)' }}>
           <h1 className="text-gradient-hero max-w-4xl mx-auto mb-2">
-            Turn Views Into
+            Turn Ideas Into
           </h1>
           <h1
             className="max-w-4xl mx-auto mb-6"
@@ -555,10 +555,10 @@ export default function HeroSection() {
               filter: 'drop-shadow(0 0 12px rgba(255,90,0,0.6))',
             }}
           >
-            Revenue Machines
+            Finished Work
           </h1>
           <p className="text-ink-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            We engineer YouTube channels into automated revenue engines — CPM optimization, AI-powered content strategy, and monetization systems that scale while you sleep.
+            We build websites, edit video, and craft brand identities — clean, custom-coded work with clear pricing and direct communication from start to finish.
           </p>
         </div>
 
@@ -567,7 +567,7 @@ export default function HeroSection() {
           className="hero-ctas flex flex-col sm:flex-row gap-4 mt-8"
           style={{ opacity: 0, transform: 'translateY(16px)' }}
         >
-          <a
+          
             href="/#apply"
             className="glass-button text-sm px-8 py-4 font-display tracking-wider text-white"
             style={{
@@ -576,17 +576,17 @@ export default function HeroSection() {
               border: '1px solid rgba(255,220,180,0.35)',
             }}
           >
-            🚀 Get Free Revenue Audit
+            🚀 Get a Free Quote
           </a>
-          <a
-            href="/#reviews"
+          
+            <a href="/#reviews"
             className="glass-badge text-sm px-8 py-4 font-display tracking-wider rounded-lg transition-all"
             style={{
               borderColor: 'rgba(255,140,0,0.4)',
               color: '#ffb347',
             }}
           >
-            📊 See Client Results
+            📊 See Our Work
           </a>
         </div>
 
