@@ -1,8 +1,4 @@
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { colors, bloom as bloomDefaults } from '@/theme/tokens';
 
 /* ─── GSAP import (CDN-safe dynamic) ──────────────────────────────── */
@@ -16,14 +12,8 @@ const FIRE = {
   arc:       0x7c3aed,
   particle:  0x00d4ff,
 };
-const FIRE_STOPS = [
-  new THREE.Color(0xffffff),
-  new THREE.Color(0x00d4ff),
-  new THREE.Color(0x7c3aed),
-  new THREE.Color(0x1a0a3e),
-];
 
-function randomSpherePoint(radius) {
+function randomSpherePoint(THREE, radius) {
   const u = Math.random(), v = Math.random();
   const theta = 2 * Math.PI * u;
   const phi   = Math.acos(2 * v - 1);
@@ -34,7 +24,7 @@ function randomSpherePoint(radius) {
   );
 }
 
-function createArc(a, b, radius) {
+function createArc(THREE, a, b, radius) {
   const pts = [];
   for (let i = 0; i <= 40; i++) {
     const t  = i / 40;
@@ -77,7 +67,28 @@ export default function HeroSection() {
       buildScene();
     });
 
-    function buildScene() {
+    async function buildScene() {
+    // Dynamically import three.js (and, only when needed, the heavier
+    // postprocessing modules). This keeps three.js out of the main JS
+    // bundle entirely — it's fetched as its own chunk, in parallel,
+    // only once the browser is idle.
+    const THREE = await import('three');
+    let EffectComposer, RenderPass, UnrealBloomPass;
+    if (USE_BLOOM) {
+      [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }] = await Promise.all([
+        import('three/examples/jsm/postprocessing/EffectComposer.js'),
+        import('three/examples/jsm/postprocessing/RenderPass.js'),
+        import('three/examples/jsm/postprocessing/UnrealBloomPass.js'),
+      ]);
+    }
+    if (cancelled || !canvasRef.current) return;
+
+    const FIRE_STOPS = [
+      new THREE.Color(0xffffff),
+      new THREE.Color(0x00d4ff),
+      new THREE.Color(0x7c3aed),
+      new THREE.Color(0x1a0a3e),
+    ];
 
     const W = canvas.clientWidth;
     const H = canvas.clientHeight;
@@ -200,7 +211,7 @@ export default function HeroSection() {
     const nodeMeshes = [];
     const nodePositions = [];
     for (let i = 0; i < NODE_COUNT; i++) {
-      const pos  = randomSpherePoint(GLOBE_R * 1.01);
+      const pos  = randomSpherePoint(THREE, GLOBE_R * 1.01);
       const mat  = new THREE.MeshBasicMaterial({ color: new THREE.Color(FIRE.node), transparent: true, opacity: 0.95 });
       const mesh = new THREE.Mesh(nodeGeo, mat);
       mesh.position.copy(pos);
@@ -212,7 +223,7 @@ export default function HeroSection() {
     for (let i = 0; i < ARC_COUNT; i++) {
       const a   = nodePositions[Math.floor(Math.random() * NODE_COUNT)];
       const b   = nodePositions[Math.floor(Math.random() * NODE_COUNT)];
-      const crv = createArc(a, b, GLOBE_R * 1.01);
+      const crv = createArc(THREE, a, b, GLOBE_R * 1.01);
       const pts = crv.getPoints(isLite ? 20 : 40);
       const g   = new THREE.BufferGeometry().setFromPoints(pts);
       const m   = new THREE.LineBasicMaterial({

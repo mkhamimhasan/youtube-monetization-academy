@@ -1,30 +1,35 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '@/components/layout/RootLayout';
-import HomePage     from '@/pages/HomePage';
-import AboutPage    from '@/pages/AboutPage';
-import ServicesPage from '@/pages/ServicesPage';
-import PortfolioPage from '@/pages/PortfolioPage';
-import PricingPage  from '@/pages/PricingPage';
-import ContactPage  from '@/pages/ContactPage';
+import HomePage from '@/pages/HomePage';
 import { ROUTES } from '@/config/routes';
 
 /**
  * Route tree — v3 sitemap, 6 pages.
- * Phase 2: HomePage. Phase 3-5: About, Services, Portfolio, Pricing,
- * and Contact are now fully built out, replacing the RouteStub
- * placeholders per the original Phase 2 plan.
+ * Only HomePage is bundled eagerly (it's the landing page and needs to
+ * be fast). Every other page is code-split via React.lazy so visitors
+ * who only view the homepage don't pay for About/Services/Portfolio/
+ * Pricing/Contact JS on first load.
  */
+const AboutPage    = lazy(() => import('@/pages/AboutPage'));
+const ServicesPage = lazy(() => import('@/pages/ServicesPage'));
+const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'));
+const PricingPage  = lazy(() => import('@/pages/PricingPage'));
+const ContactPage  = lazy(() => import('@/pages/ContactPage'));
+
+const withSuspense = (el) => <Suspense fallback={null}>{el}</Suspense>;
+
 export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
     element: <RootLayout />,
     children: [
       { index: true,                     element: <HomePage /> },
-      { path: ROUTES.ABOUT.slice(1),     element: <AboutPage /> },
-      { path: ROUTES.SERVICES.slice(1),  element: <ServicesPage /> },
-      { path: ROUTES.PORTFOLIO.slice(1), element: <PortfolioPage /> },
-      { path: ROUTES.PRICING.slice(1),   element: <PricingPage /> },
-      { path: ROUTES.CONTACT.slice(1),   element: <ContactPage /> },
+      { path: ROUTES.ABOUT.slice(1),     element: withSuspense(<AboutPage />) },
+      { path: ROUTES.SERVICES.slice(1),  element: withSuspense(<ServicesPage />) },
+      { path: ROUTES.PORTFOLIO.slice(1), element: withSuspense(<PortfolioPage />) },
+      { path: ROUTES.PRICING.slice(1),   element: withSuspense(<PricingPage />) },
+      { path: ROUTES.CONTACT.slice(1),   element: withSuspense(<ContactPage />) },
     ],
   },
 ]);
