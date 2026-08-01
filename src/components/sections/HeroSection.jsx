@@ -9,11 +9,6 @@ import { colors, bloom as bloomDefaults } from '@/theme/tokens';
 let gsap;
 (async () => { try { gsap = (await import('gsap')).gsap; } catch {} })();
 
-/* ─── CONSTANTS ───────────────────────────────────────────────────── */
-const PARTICLE_COUNT = 6000;
-const NODE_COUNT     = 32;
-const ARC_COUNT      = 12;
-
 const FIRE = {
   core:      0x2d0a5e,
   wireframe: 0x4da6ff,
@@ -57,12 +52,39 @@ export default function HeroSection() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    /* ─── Device tier detection ────────────────────────────────────
+       Mobile / low-end devices get a lighter scene: fewer particles,
+       lower-poly geometry, no bloom post-processing, capped DPR.
+       This is what was blowing up Total Blocking Time on mobile. */
+    const isMobile   = window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
+    const lowPower   = (navigator.hardwareConcurrency || 8) <= 4;
+    const isLite     = isMobile || lowPower;
+
+    const PARTICLE_COUNT = isLite ? 900  : 6000;
+    const NODE_COUNT     = isLite ? 16   : 32;
+    const ARC_COUNT      = isLite ? 6    : 12;
+    const USE_BLOOM      = !isLite;
+
+    let cancelled = false;
+    let cleanupFns = [];
+
+    // Defer the heavy scene build until the browser is idle so it
+    // doesn't block the main thread during initial load/paint.
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1));
+    const cancelIdle = window.cancelIdleCallback || clearTimeout;
+    const idleHandle = idle(() => {
+      if (cancelled) return;
+      buildScene();
+    });
+
+    function buildScene() {
+
     const W = canvas.clientWidth;
     const H = canvas.clientHeight;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isLite, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isLite ? 1 : 2));
     renderer.setClearColor(0x000000, 0);
 
     const scene  = new THREE.Scene();
@@ -82,7 +104,7 @@ export default function HeroSection() {
     scene.add(globeGroup);
     const GLOBE_R = 1.3;
 
-    const coreGeo = new THREE.SphereGeometry(GLOBE_R, 64, 64);
+    const coreGeo = new THREE.SphereGeometry(GLOBE_R, isLite ? 28 : 64, isLite ? 28 : 64);
     const coreMat = new THREE.MeshStandardMaterial({
       color: 0x0a0a2e,
       emissive: new THREE.Color(0x7c3aed),
@@ -94,7 +116,7 @@ export default function HeroSection() {
     });
     globeGroup.add(new THREE.Mesh(coreGeo, coreMat));
 
-    const hotspotGeo = new THREE.SphereGeometry(GLOBE_R * 0.22, 24, 24);
+    const hotspotGeo = new THREE.SphereGeometry(GLOBE_R * 0.22, isLite ? 12 : 24, isLite ? 12 : 24);
     const hotspotMat = new THREE.MeshBasicMaterial({
       color: 0x00d4ff,
       transparent: true,
@@ -106,7 +128,7 @@ export default function HeroSection() {
     hotspot.position.set(GLOBE_R * 0.55, GLOBE_R * 0.2, GLOBE_R * 0.8);
     globeGroup.add(hotspot);
 
-    const gridGeo = new THREE.SphereGeometry(GLOBE_R * 1.005, 32, 24);
+    const gridGeo = new THREE.SphereGeometry(GLOBE_R * 1.005, isLite ? 16 : 32, isLite ? 12 : 24);
     const gridMat = new THREE.MeshBasicMaterial({
       color: new THREE.Color(FIRE.wireframe),
       wireframe: true,
@@ -115,7 +137,7 @@ export default function HeroSection() {
     });
     globeGroup.add(new THREE.Mesh(gridGeo, gridMat));
 
-    const atmGeo = new THREE.SphereGeometry(GLOBE_R * 1.18, 48, 48);
+    const atmGeo = new THREE.SphereGeometry(GLOBE_R * 1.18, isLite ? 20 : 48, isLite ? 20 : 48);
     const atmMat = new THREE.ShaderMaterial({
       uniforms: { glowColor: { value: new THREE.Color(0x7c3aed) } },
       vertexShader: `
@@ -142,13 +164,13 @@ export default function HeroSection() {
 
     function createOrbitRing(radius, tiltX, tiltZ) {
       const pts = [];
-      const segments = 128;
+      const segments = isLite ? 48 : 128;
       for (let i = 0; i <= segments; i++) {
         const a = (i / segments) * Math.PI * 2;
         pts.push(new THREE.Vector3(Math.cos(a) * radius, 0, Math.sin(a) * radius));
       }
       const curve = new THREE.CatmullRomCurve3(pts, true);
-      const tubeGeo = new THREE.TubeGeometry(curve, 128, 0.006, 6, true);
+      const tubeGeo = new THREE.TubeGeometry(curve, segments, 0.006, 5, true);
       const tubeMat = new THREE.MeshBasicMaterial({
         color: 0x00d4ff,
         transparent: true,
@@ -191,7 +213,7 @@ export default function HeroSection() {
       const a   = nodePositions[Math.floor(Math.random() * NODE_COUNT)];
       const b   = nodePositions[Math.floor(Math.random() * NODE_COUNT)];
       const crv = createArc(a, b, GLOBE_R * 1.01);
-      const pts = crv.getPoints(40);
+      const pts = crv.getPoints(isLite ? 20 : 40);
       const g   = new THREE.BufferGeometry().setFromPoints(pts);
       const m   = new THREE.LineBasicMaterial({
         color: new THREE.Color(FIRE.arc),
@@ -231,10 +253,13 @@ export default function HeroSection() {
     });
     scene.add(new THREE.Points(pGeo, pMat));
 
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.5, 0.5, 0.65);
-    composer.addPass(bloomPass);
+    let composer = null;
+    if (USE_BLOOM) {
+      composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+      const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.5, 0.5, 0.65);
+      composer.addPass(bloomPass);
+    }
 
     let targetRX = 0, targetRY = 0;
     let currentRX = 0, currentRY = 0;
@@ -249,7 +274,7 @@ export default function HeroSection() {
       renderer.setSize(nW, nH);
       camera.aspect = nW / nH;
       camera.updateProjectionMatrix();
-      composer.setSize(nW, nH);
+      if (composer) composer.setSize(nW, nH);
     };
     window.addEventListener('resize', onResize);
 
@@ -277,15 +302,23 @@ export default function HeroSection() {
         oe.mesh.position.copy(p);
       });
 
-      composer.render();
+      if (composer) composer.render();
+      else renderer.render(scene, camera);
     };
     tick();
 
-    return () => {
+    cleanupFns.push(() => {
       cancelAnimationFrame(frame);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
       renderer.dispose();
+    });
+    } // end buildScene
+
+    return () => {
+      cancelled = true;
+      cancelIdle(idleHandle);
+      cleanupFns.forEach((fn) => fn());
     };
   }, []);
 
