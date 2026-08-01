@@ -320,11 +320,14 @@ export default function HeroSection() {
     { label: 'Communication',   value: '1-on-1', sub: 'Direct with you',   accent: '#00d4ff' },
   ];
 
-  const whyUs = [
-    { icon: '⚡', text: 'Fast 48h turnaround' },
+  const whyUsNormal = [
     { icon: '💬', text: 'Direct 1-on-1 communication' },
     { icon: '🎯', text: 'Custom-coded — no templates' },
-    { icon: '🔁', text: 'Unlimited revisions on Pro plan' },
+  ];
+
+  const whyUsPremium = [
+    { icon: '💬', text: 'Direct 1-on-1 communication' },
+    { icon: '🔁', text: 'Unlimited revisions' },
   ];
 
   const process = [
@@ -527,35 +530,71 @@ export default function HeroSection() {
 
 
 
-        {/* ── NEW: Why Choose Us + Our Process ───────────────────────── */}
-        <div
-          className="hero-bottom-cards grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 max-w-2xl w-full"
-          style={{ opacity: 0, transform: 'translateY(20px)' }}
-        >
-          {/* Why Choose Us */}
+          {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <div className="flex flex-col items-center gap-2 text-ink-muted animate-bounce">
+            <span className="font-mono text-[9px] uppercase tracking-widest">Scroll</span>
+            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+              <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Below globe: Why Choose Us + Our Process ─────────────────── */}
+      <div
+        className="hero-bottom-cards relative z-20 w-full px-6 pb-20"
+        style={{ opacity: 0, transform: 'translateY(20px)' }}
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+
+          {/* Why Choose Us — Normal */}
           <div
             className="rounded-xl px-6 py-5 text-left"
             style={{
               background: 'rgba(77,166,255,0.05)',
               border: '1px solid rgba(77,166,255,0.18)',
-              boxShadow: '0 0 28px rgba(77,166,255,0.07)',
             }}
           >
-            <p
-              className="font-mono text-[10px] uppercase tracking-widest mb-4"
-              style={{ color: '#4da6ff' }}
-            >
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: '#4da6ff' }}>
               ✦ Why Choose Us
             </p>
+            <span
+              className="inline-block font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mb-4"
+              style={{ background: 'rgba(77,166,255,0.1)', color: '#4da6ff', border: '1px solid rgba(77,166,255,0.25)' }}
+            >
+              Normal
+            </span>
             <ul className="space-y-3">
-              {whyUs.map(({ icon, text }) => (
-                <li
-                  key={text}
-                  className="flex items-center gap-3 text-sm leading-snug"
-                  style={{ color: '#e2e8f0' }}
-                >
-                  <span className="text-base leading-none">{icon}</span>
-                  <span>{text}</span>
+              {whyUsNormal.map(({ icon, text }) => (
+                <li key={text} className="flex items-center gap-3 text-sm" style={{ color: '#e2e8f0' }}>
+                  <span>{icon}</span><span>{text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Why Choose Us — Premium */}
+          <div
+            className="rounded-xl px-6 py-5 text-left"
+            style={{
+              background: 'rgba(124,58,237,0.07)',
+              border: '2px solid rgba(167,139,250,0.35)',
+            }}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: '#a78bfa' }}>
+              ✦ Why Choose Us
+            </p>
+            <span
+              className="inline-block font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mb-4"
+              style={{ background: 'rgba(167,139,250,0.15)', color: '#a78bfa', border: '1px solid rgba(167,139,250,0.35)' }}
+            >
+              ⭐ Premium
+            </span>
+            <ul className="space-y-3">
+              {whyUsPremium.map(({ icon, text }) => (
+                <li key={text} className="flex items-center gap-3 text-sm" style={{ color: '#c4b5fd' }}>
+                  <span>{icon}</span><span>{text}</span>
                 </li>
               ))}
             </ul>
@@ -565,45 +604,23 @@ export default function HeroSection() {
           <div
             className="rounded-xl px-6 py-5 text-left"
             style={{
-              background: 'rgba(124,58,237,0.05)',
-              border: '1px solid rgba(124,58,237,0.18)',
-              boxShadow: '0 0 28px rgba(124,58,237,0.07)',
+              background: 'rgba(0,212,255,0.04)',
+              border: '1px solid rgba(0,212,255,0.15)',
             }}
           >
-            <p
-              className="font-mono text-[10px] uppercase tracking-widest mb-4"
-              style={{ color: '#a78bfa' }}
-            >
+            <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: '#00d4ff' }}>
               ✦ Our Process
             </p>
             <ol className="space-y-3">
               {process.map(({ num, text }) => (
-                <li
-                  key={num}
-                  className="flex items-center gap-3 text-sm leading-snug"
-                  style={{ color: '#e2e8f0' }}
-                >
-                  <span
-                    className="font-mono text-xs font-bold shrink-0"
-                    style={{ color: '#7c3aed' }}
-                  >
-                    {num}
-                  </span>
+                <li key={num} className="flex items-center gap-3 text-sm" style={{ color: '#e2e8f0' }}>
+                  <span className="font-mono text-xs font-bold shrink-0" style={{ color: '#7c3aed' }}>{num}</span>
                   <span>{text}</span>
                 </li>
               ))}
             </ol>
           </div>
-        </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="flex flex-col items-center gap-2 text-ink-muted animate-bounce">
-            <span className="font-mono text-[9px] uppercase tracking-widest">Scroll</span>
-            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-              <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </div>
         </div>
       </div>
     </section>
