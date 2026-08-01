@@ -546,14 +546,14 @@ export default function HeroSection() {
         className="hero-bottom-cards relative z-20 w-full px-6 pb-20"
         style={{ opacity: 0, transform: 'translateY(20px)' }}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
 
           {/* Why Choose Us — Normal */}
           <div
             className="rounded-xl px-6 py-5 text-left"
             style={{
               background: 'rgba(77,166,255,0.05)',
-              border: '1px solid rgba(77,166,255,0.18)',
+              border: '0.5px solid rgba(77,166,255,0.22)',
             }}
           >
             <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: '#4da6ff' }}>
@@ -561,7 +561,7 @@ export default function HeroSection() {
             </p>
             <span
               className="inline-block font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mb-4"
-              style={{ background: 'rgba(77,166,255,0.1)', color: '#4da6ff', border: '1px solid rgba(77,166,255,0.25)' }}
+              style={{ background: 'rgba(77,166,255,0.1)', color: '#4da6ff', border: '0.5px solid rgba(77,166,255,0.3)' }}
             >
               Normal
             </span>
@@ -579,7 +579,7 @@ export default function HeroSection() {
             className="rounded-xl px-6 py-5 text-left"
             style={{
               background: 'rgba(124,58,237,0.07)',
-              border: '2px solid rgba(167,139,250,0.35)',
+              border: '0.5px solid rgba(167,139,250,0.35)',
             }}
           >
             <p className="font-mono text-[10px] uppercase tracking-widest mb-1" style={{ color: '#a78bfa' }}>
@@ -587,7 +587,7 @@ export default function HeroSection() {
             </p>
             <span
               className="inline-block font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full mb-4"
-              style={{ background: 'rgba(167,139,250,0.15)', color: '#a78bfa', border: '1px solid rgba(167,139,250,0.35)' }}
+              style={{ background: 'rgba(167,139,250,0.15)', color: '#a78bfa', border: '0.5px solid rgba(167,139,250,0.4)' }}
             >
               ⭐ Premium
             </span>
@@ -598,27 +598,6 @@ export default function HeroSection() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Our Process */}
-          <div
-            className="rounded-xl px-6 py-5 text-left"
-            style={{
-              background: 'rgba(0,212,255,0.04)',
-              border: '1px solid rgba(0,212,255,0.15)',
-            }}
-          >
-            <p className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: '#00d4ff' }}>
-              ✦ Our Process
-            </p>
-            <ol className="space-y-3">
-              {process.map(({ num, text }) => (
-                <li key={num} className="flex items-center gap-3 text-sm" style={{ color: '#e2e8f0' }}>
-                  <span className="font-mono text-xs font-bold shrink-0" style={{ color: '#7c3aed' }}>{num}</span>
-                  <span>{text}</span>
-                </li>
-              ))}
-            </ol>
           </div>
 
         </div>
