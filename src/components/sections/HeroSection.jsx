@@ -14,23 +14,20 @@ const PARTICLE_COUNT = 6000;
 const NODE_COUNT     = 32;
 const ARC_COUNT      = 12;
 
-/* ─── FIRE GLOBE PALETTE ──────────────────────────────────────────── */
 const FIRE = {
-  core:      0xff4d00, // inner glow sphere
-  wireframe: 0xffae00, // icosahedron wireframe
-  node:      0xffcc55, // surface nodes
-  arc:       0xff5500, // arc lines between nodes
-  particle:  0xffb347, // fallback ambient particle color
+  core:      0x2d0a5e,
+  wireframe: 0x4da6ff,
+  node:      0xa78bfa,
+  arc:       0x7c3aed,
+  particle:  0x00d4ff,
 };
-// Multi-stop gradient used for per-particle fire coloring (hot core -> ember)
 const FIRE_STOPS = [
-  new THREE.Color(0xffee00), // yellow-white hot
-  new THREE.Color(0xff9500), // orange
-  new THREE.Color(0xff3d00), // red-orange
-  new THREE.Color(0x8a0000), // deep ember
+  new THREE.Color(0xffffff),
+  new THREE.Color(0x00d4ff),
+  new THREE.Color(0x7c3aed),
+  new THREE.Color(0x1a0a3e),
 ];
 
-/* ─── Helper: random point on sphere ─────────────────────────────── */
 function randomSpherePoint(radius) {
   const u = Math.random(), v = Math.random();
   const theta = 2 * Math.PI * u;
@@ -42,7 +39,6 @@ function randomSpherePoint(radius) {
   );
 }
 
-/* ─── Helper: great-circle arc tube ──────────────────────────────── */
 function createArc(a, b, radius) {
   const pts = [];
   for (let i = 0; i <= 40; i++) {
@@ -57,7 +53,6 @@ export default function HeroSection() {
   const canvasRef  = useRef(null);
   const sectionRef = useRef(null);
 
-  /* ── Three.js Globe (glowing fire sun + bloom) ─────────────────────── */
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -72,31 +67,25 @@ export default function HeroSection() {
 
     const scene  = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 100);
-    // Pulled back further so the globe reads as a background accent,
-    // not something that collides with the badge/buttons above it.
     camera.position.set(0, 0, 10.5);
 
-    /* --- Lights (drive the emissive core + rim glow) --- */
-    scene.add(new THREE.AmbientLight(0x552200, 1.2));
-    const keyLight = new THREE.PointLight(0xff9500, 3.4, 20);
+    scene.add(new THREE.AmbientLight(0x1a1a3e, 1.2));
+    const keyLight = new THREE.PointLight(0x7c3aed, 3.4, 20);
     keyLight.position.set(3, 2, 3);
     scene.add(keyLight);
-    const rimLight = new THREE.PointLight(0xff6a00, 1.6, 20);
+    const rimLight = new THREE.PointLight(0x00d4ff, 1.6, 20);
     rimLight.position.set(-3, -1, -2);
     scene.add(rimLight);
 
     const globeGroup = new THREE.Group();
-    // Nudge the whole globe down slightly so its top clears the badge
-    // and its bottom clears the CTA buttons.
     globeGroup.position.set(0, -0.35, 0);
     scene.add(globeGroup);
     const GLOBE_R = 1.3;
 
-    /* --- Solid emissive core (the "sun") --- */
     const coreGeo = new THREE.SphereGeometry(GLOBE_R, 64, 64);
     const coreMat = new THREE.MeshStandardMaterial({
-      color: 0x220400,
-      emissive: new THREE.Color(0xff8c00),
+      color: 0x0a0a2e,
+      emissive: new THREE.Color(0x7c3aed),
       emissiveIntensity: 0.32,
       roughness: 0.55,
       metalness: 0.1,
@@ -105,12 +94,9 @@ export default function HeroSection() {
     });
     globeGroup.add(new THREE.Mesh(coreGeo, coreMat));
 
-    /* --- Bright hotspot (fixed on the sphere, rotates with it — the "sun flare" patch) ---
-       Toned way down: smaller, dimmer, and no additive blending so it no
-       longer reads as a separate white "moon" next to the globe. */
     const hotspotGeo = new THREE.SphereGeometry(GLOBE_R * 0.22, 24, 24);
     const hotspotMat = new THREE.MeshBasicMaterial({
-      color: 0xffcf8a,
+      color: 0x00d4ff,
       transparent: true,
       opacity: 0.35,
       blending: THREE.NormalBlending,
@@ -120,7 +106,6 @@ export default function HeroSection() {
     hotspot.position.set(GLOBE_R * 0.55, GLOBE_R * 0.2, GLOBE_R * 0.8);
     globeGroup.add(hotspot);
 
-    /* --- Lat/long wireframe grid --- */
     const gridGeo = new THREE.SphereGeometry(GLOBE_R * 1.005, 32, 24);
     const gridMat = new THREE.MeshBasicMaterial({
       color: new THREE.Color(FIRE.wireframe),
@@ -130,10 +115,9 @@ export default function HeroSection() {
     });
     globeGroup.add(new THREE.Mesh(gridGeo, gridMat));
 
-    /* --- Outer atmosphere glow (rim-light shader) --- */
     const atmGeo = new THREE.SphereGeometry(GLOBE_R * 1.18, 48, 48);
     const atmMat = new THREE.ShaderMaterial({
-      uniforms: { glowColor: { value: new THREE.Color(0xff5500) } },
+      uniforms: { glowColor: { value: new THREE.Color(0x7c3aed) } },
       vertexShader: `
         varying vec3 vNormal;
         void main() {
@@ -156,7 +140,6 @@ export default function HeroSection() {
     });
     globeGroup.add(new THREE.Mesh(atmGeo, atmMat));
 
-    /* --- Orbital fire rings (comet trail effect around the globe) --- */
     function createOrbitRing(radius, tiltX, tiltZ) {
       const pts = [];
       const segments = 128;
@@ -167,7 +150,7 @@ export default function HeroSection() {
       const curve = new THREE.CatmullRomCurve3(pts, true);
       const tubeGeo = new THREE.TubeGeometry(curve, 128, 0.006, 6, true);
       const tubeMat = new THREE.MeshBasicMaterial({
-        color: 0xff8c00,
+        color: 0x00d4ff,
         transparent: true,
         opacity: 0.3,
         blending: THREE.AdditiveBlending,
@@ -185,13 +168,12 @@ export default function HeroSection() {
     ];
     const orbitEmberGeo = new THREE.SphereGeometry(0.022, 8, 8);
     const orbitEmbers = orbitRings.map((ring) => {
-      const mat = new THREE.MeshBasicMaterial({ color: 0xffee00, transparent: true, opacity: 0.95 });
+      const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.95 });
       const mesh = new THREE.Mesh(orbitEmberGeo, mat);
       globeGroup.add(mesh);
       return { ring, mesh, progress: Math.random(), speed: 0.05 + Math.random() * 0.04 };
     });
 
-    /* --- Surface nodes (embers) --- */
     const nodeGeo  = new THREE.SphereGeometry(0.045, 8, 8);
     const nodeMeshes = [];
     const nodePositions = [];
@@ -205,7 +187,6 @@ export default function HeroSection() {
       nodePositions.push(pos);
     }
 
-    /* --- Arc lines between nodes (fire trails) --- */
     for (let i = 0; i < ARC_COUNT; i++) {
       const a   = nodePositions[Math.floor(Math.random() * NODE_COUNT)];
       const b   = nodePositions[Math.floor(Math.random() * NODE_COUNT)];
@@ -221,7 +202,6 @@ export default function HeroSection() {
       globeGroup.add(new THREE.Line(g, m));
     }
 
-    /* --- Ambient particles (fire gradient: hot core -> ember) --- */
     const pPositions = new Float32Array(PARTICLE_COUNT * 3);
     const pColors    = new Float32Array(PARTICLE_COUNT * 3);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -251,15 +231,11 @@ export default function HeroSection() {
     });
     scene.add(new THREE.Points(pGeo, pMat));
 
-    /* --- Bloom post-processing (the glow bleed that makes it look like a sun) ---
-       Strength and threshold pulled back so the glow stays contained near
-       the globe instead of washing the whole screen orange. */
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
     const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.5, 0.5, 0.65);
     composer.addPass(bloomPass);
 
-    /* --- Mouse parallax --- */
     let targetRX = 0, targetRY = 0;
     let currentRX = 0, currentRY = 0;
     const onMouseMove = (e) => {
@@ -268,7 +244,6 @@ export default function HeroSection() {
     };
     window.addEventListener('mousemove', onMouseMove, { passive: true });
 
-    /* --- Resize --- */
     const onResize = () => {
       const nW = canvas.clientWidth, nH = canvas.clientHeight;
       renderer.setSize(nW, nH);
@@ -278,7 +253,6 @@ export default function HeroSection() {
     };
     window.addEventListener('resize', onResize);
 
-    /* --- Animate --- */
     let frame;
     const clock = new THREE.Clock();
     const tick = () => {
@@ -286,18 +260,15 @@ export default function HeroSection() {
       const dt = clock.getDelta();
       const t = clock.getElapsedTime();
 
-      // Auto-rotate + mouse parallax
       currentRX += (targetRX - currentRX) * 0.05;
       currentRY += (targetRY - currentRY) * 0.05;
       globeGroup.rotation.y = t * 0.08 + currentRY;
       globeGroup.rotation.x = currentRX;
 
-      // Pulse node opacity (flickering ember effect)
       nodeMeshes.forEach((mesh, idx) => {
         mesh.material.opacity = 0.5 + 0.5 * Math.sin(t * 1.5 + idx * 0.4);
       });
 
-      // Orbit embers traveling along their ring paths
       orbitEmbers.forEach((oe) => {
         oe.progress += dt * oe.speed;
         if (oe.progress > 1) oe.progress -= 1;
@@ -318,7 +289,6 @@ export default function HeroSection() {
     };
   }, []);
 
-  /* ── GSAP intro sequence ─────────────────────────────────────────── */
   useEffect(() => {
     const run = async () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -327,28 +297,41 @@ export default function HeroSection() {
       if (!el) return;
 
       const q = (sel) => el.querySelector(sel);
-      const all = (sel) => el.querySelectorAll(sel);
 
-      g.set([q('.hero-city'), q('.hero-grid'), q('.hero-canvas-wrap'), q('.hero-panels'), q('.hero-text'), q('.hero-ctas')], {
+      g.set([q('.hero-city'), q('.hero-grid'), q('.hero-canvas-wrap'), q('.hero-panels'), q('.hero-text'), q('.hero-bottom-cards')], {
         opacity: 0,
       });
 
       const tl = g.timeline({ delay: 0.1 });
-      tl.to(q('.hero-city'),       { opacity: 1,    duration: 0.7, ease: 'power2.out' })
-        .to(q('.hero-grid'),       { opacity: 1,    duration: 0.6, ease: 'power2.out' }, '-=0.3')
-        .to(q('.hero-canvas-wrap'),{ opacity: 1,    duration: 0.8, ease: 'power2.out' }, '-=0.3')
-        .to(q('.hero-panels'),     { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12 }, '-=0.2')
-        .to(q('.hero-text'),       { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.3')
-        .to(q('.hero-ctas'),       { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, '-=0.2');
+      tl.to(q('.hero-city'),         { opacity: 1,    duration: 0.7, ease: 'power2.out' })
+        .to(q('.hero-grid'),         { opacity: 1,    duration: 0.6, ease: 'power2.out' }, '-=0.3')
+        .to(q('.hero-canvas-wrap'),  { opacity: 1,    duration: 0.8, ease: 'power2.out' }, '-=0.3')
+        .to(q('.hero-panels'),       { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12 }, '-=0.2')
+        .to(q('.hero-text'),         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.3')
+        .to(q('.hero-bottom-cards'), { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.2');
     };
     run();
   }, []);
 
-  /* ── Holo panel data ─────────────────────────────────────────────── */
+  /* ── UPDATED: clearer panel data ─────────────────────────────────── */
   const panels = [
-    { label: 'Response Time',   value: '48h',    sub: 'Avg. turnaround',    accent: '#ffb347' },
-    { label: 'Revisions',       value: '3-∞',    sub: 'Depending on plan',  accent: '#ff6a00' },
-    { label: 'Communication',   value: '1-on-1', sub: 'Direct with you',    accent: '#ffee00' },
+    { label: 'Response Time',   value: '48h',    sub: 'Avg. turnaround',   accent: '#4da6ff' },
+    { label: 'Revisions',       value: '3–∞',    sub: 'Depending on plan', accent: '#a78bfa' },
+    { label: 'Communication',   value: '1-on-1', sub: 'Direct with you',   accent: '#00d4ff' },
+  ];
+
+  const whyUs = [
+    { icon: '⚡', text: 'Fast 48h turnaround' },
+    { icon: '💬', text: 'Direct 1-on-1 communication' },
+    { icon: '🎯', text: 'Custom-coded — no templates' },
+    { icon: '🔁', text: 'Unlimited revisions on Pro plan' },
+  ];
+
+  const process = [
+    { num: '01', text: 'Brief & discovery call' },
+    { num: '02', text: 'Design & prototype' },
+    { num: '03', text: 'Build & revise' },
+    { num: '04', text: 'Deliver & support' },
   ];
 
   return (
@@ -357,9 +340,7 @@ export default function HeroSection() {
       className="relative w-full overflow-hidden"
       style={{ minHeight: '100vh' }}
     >
-      {/* L1 — Deep space base (always visible, BG color from body) */}
-
-      {/* L2 — Cyberpunk city skyline (CSS drawn) */}
+      {/* L2 — Cyberpunk city skyline */}
       <div
         className="hero-city absolute inset-0 pointer-events-none"
         style={{ opacity: 0 }}
@@ -371,7 +352,6 @@ export default function HeroSection() {
           preserveAspectRatio="xMidYMax slice"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Buildings */}
           {[
             [0,220,60,180],[70,260,45,140],[125,200,80,200],[215,280,35,120],
             [260,180,70,220],[340,240,55,160],[405,200,90,200],[505,260,40,140],
@@ -379,9 +359,8 @@ export default function HeroSection() {
             [830,190,80,210],[920,260,35,140],[965,180,70,220],[1045,240,55,160],
             [1110,200,90,200],[1210,265,40,135],[1260,175,75,225],[1345,255,95,145],
           ].map(([x, y, w, h], i) => (
-            <rect key={i} x={x} y={y} width={w} height={h} fill="#1a0a05" />
+            <rect key={i} x={x} y={y} width={w} height={h} fill="#0a0a1f" />
           ))}
-          {/* Neon window dots */}
           {Array.from({ length: 180 }, (_, i) => (
             <rect
               key={`w${i}`}
@@ -389,17 +368,16 @@ export default function HeroSection() {
               y={100 + Math.random() * 240}
               width={3}
               height={4}
-              fill={i % 3 === 0 ? '#ff3d00' : i % 3 === 1 ? '#ff9500' : '#ffee00'}
+              fill={i % 3 === 0 ? '#0066ff' : i % 3 === 1 ? '#4da6ff' : '#00d4ff'}
               opacity={0.4 + Math.random() * 0.5}
             />
           ))}
         </svg>
-        {/* Horizon glow */}
         <div
           className="absolute bottom-0 left-0 right-0"
           style={{
             height: '35%',
-            background: 'linear-gradient(to top, rgba(255,90,0,0.18) 0%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(124,58,237,0.14) 0%, transparent 100%)',
           }}
         />
       </div>
@@ -417,48 +395,31 @@ export default function HeroSection() {
         >
           <defs>
             <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ff6a00" stopOpacity="0" />
-              <stop offset="60%" stopColor="#ff6a00" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#ff6a00" stopOpacity="0.5" />
+              <stop offset="0%" stopColor="#4da6ff" stopOpacity="0" />
+              <stop offset="60%" stopColor="#4da6ff" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#4da6ff" stopOpacity="0.5" />
             </linearGradient>
           </defs>
-          {/* Converging horizontal lines */}
           {Array.from({ length: 14 }, (_, i) => {
             const y = 120 + i * 20;
             const fade = i / 14;
             return (
-              <line
-                key={`h${i}`}
-                x1={0} y1={y} x2={800} y2={y}
-                stroke="#ff6a00"
-                strokeOpacity={0.08 + fade * 0.3}
-                strokeWidth={0.5}
-              />
+              <line key={`h${i}`} x1={0} y1={y} x2={800} y2={y}
+                stroke="#4da6ff" strokeOpacity={0.08 + fade * 0.3} strokeWidth={0.5} />
             );
           })}
-          {/* Vanishing vertical lines */}
           {Array.from({ length: 19 }, (_, i) => {
             const xTop = 400 + (i - 9) * 14;
             const xBot = (i / 18) * 800;
             return (
-              <line
-                key={`v${i}`}
-                x1={xTop} y1={120} x2={xBot} y2={400}
-                stroke="#ff6a00"
-                strokeOpacity={0.18}
-                strokeWidth={0.5}
-              />
+              <line key={`v${i}`} x1={xTop} y1={120} x2={xBot} y2={400}
+                stroke="#4da6ff" strokeOpacity={0.18} strokeWidth={0.5} />
             );
           })}
         </svg>
       </div>
 
-      {/* L4 — Three.js globe.
-          Full-bleed canvas again (a constrained box left a visible black
-          square, since the bloom composer renders an opaque background).
-          The globe itself is kept small and set back via camera distance /
-          radius inside the effect, so it reads as a background accent
-          without a hard edge around it. */}
+      {/* L4 — Three.js globe */}
       <div
         className="hero-canvas-wrap absolute inset-0 pointer-events-none"
         style={{ opacity: 0 }}
@@ -466,9 +427,7 @@ export default function HeroSection() {
         <canvas ref={canvasRef} className="w-full h-full" />
       </div>
 
-      {/* L4.5 — Radial dark vignette behind the text column so the badge,
-          headline and buttons stay readable no matter how bright the globe
-          gets underneath them. */}
+      {/* Vignette behind text */}
       <div
         className="absolute inset-0 pointer-events-none z-[15]"
         style={{
@@ -477,7 +436,7 @@ export default function HeroSection() {
         }}
       />
 
-      {/* L5 — Floating holo panels */}
+      {/* L5 — Floating holo panels — UPDATED for better readability */}
       <div className="absolute inset-0 pointer-events-none z-10">
         {panels.map((p, i) => (
           <div
@@ -492,22 +451,33 @@ export default function HeroSection() {
             }}
           >
             <div
-              className="glass-card px-4 py-3 min-w-[140px]"
+              className="solid-panel px-4 py-3 min-w-[148px]"
               style={{
-                borderColor: `${p.accent}40`,
-                boxShadow: `0 0 20px ${p.accent}22`,
+                borderColor: `${p.accent}45`,
+                boxShadow: `0 0 24px ${p.accent}28`,
               }}
             >
-              <p className="font-mono text-[9px] uppercase tracking-widest text-ink-muted mb-0.5">
+              {/* Label — accent color, fully visible */}
+              <p
+                className="font-mono text-[10px] uppercase tracking-widest mb-1"
+                style={{ color: p.accent, opacity: 0.9 }}
+              >
                 {p.label}
               </p>
+              {/* Value — large, bright */}
               <p
-                className="font-display text-2xl font-black"
-                style={{ color: p.accent }}
+                className="font-display text-2xl font-black leading-none"
+                style={{ color: p.accent, textShadow: `0 0 18px ${p.accent}88` }}
               >
                 {p.value}
               </p>
-              <p className="font-mono text-[9px] text-ink-muted mt-0.5">{p.sub}</p>
+              {/* Sub — light slate, clearly readable */}
+              <p
+                className="font-mono text-[10px] mt-1 leading-snug"
+                style={{ color: '#94a3b8' }}
+              >
+                {p.sub}
+              </p>
             </div>
           </div>
         ))}
@@ -522,19 +492,12 @@ export default function HeroSection() {
         }}
       />
 
-      {/* L7 — Hero text & CTAs */}
-      <div className="relative z-20 flex flex-col items-center justify-center text-center min-h-screen px-6 pt-20 pb-16">
-        {/* Eyebrow */}
+      {/* L7 — Hero text, CTAs, and bottom cards */}
+      <div className="relative z-20 flex flex-col items-center justify-center text-center min-h-screen px-6 pt-20 pb-20">
+
+        {/* Eyebrow badge */}
         <div className="hero-text mb-6" style={{ opacity: 0, transform: 'translateY(24px)' }}>
-          <span
-            className="badge-cyan glass-badge"
-            style={{
-              color: '#ffcf8a',
-              borderColor: 'rgba(255,140,0,0.5)',
-              boxShadow: '0 0 16px rgba(255,90,0,0.25), inset 0 0 12px rgba(0,0,0,0.4)',
-              textShadow: '0 0 8px rgba(255,140,0,0.5)',
-            }}
-          >
+          <span className="badge-cyan">
             ⚡ Website Creation & Video Editing
           </span>
         </div>
@@ -547,47 +510,90 @@ export default function HeroSection() {
           <h1
             className="max-w-4xl mx-auto mb-6"
             style={{
-              background: 'linear-gradient(135deg, #ffee00 0%, #ff9500 50%, #ff3d00 100%)',
+              background: 'linear-gradient(135deg, #00d4ff 0%, #4da6ff 50%, #7c3aed 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
-              // Glitch effect via text-shadow
-              filter: 'drop-shadow(0 0 12px rgba(255,90,0,0.6))',
+              filter: 'drop-shadow(0 0 12px rgba(124,58,237,0.5))',
             }}
           >
             Finished Work
           </h1>
           <p className="text-ink-secondary text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            We build websites, edit video, and craft brand identities — clean, custom-coded work with clear pricing and direct communication from start to finish.
+            We build websites, edit video, and craft brand identities — clean, custom-coded work
+            with clear pricing and direct communication from start to finish.
           </p>
         </div>
 
-        {/* CTAs */}
+
+
+        {/* ── NEW: Why Choose Us + Our Process ───────────────────────── */}
         <div
-          className="hero-ctas flex flex-col sm:flex-row gap-4 mt-8"
-          style={{ opacity: 0, transform: 'translateY(16px)' }}
+          className="hero-bottom-cards grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 max-w-2xl w-full"
+          style={{ opacity: 0, transform: 'translateY(20px)' }}
         >
-          
-            <a href="/#apply"
-            className="glass-button text-sm px-8 py-4 font-display tracking-wider text-white"
+          {/* Why Choose Us */}
+          <div
+            className="rounded-xl px-6 py-5 text-left"
             style={{
-              background: 'linear-gradient(135deg, rgba(255,149,0,0.85) 0%, rgba(255,61,0,0.85) 100%)',
-              boxShadow: '0 0 28px rgba(255,90,0,0.45), 0 4px 18px rgba(0,0,0,0.5)',
-              border: '1px solid rgba(255,220,180,0.35)',
+              background: 'rgba(77,166,255,0.05)',
+              border: '1px solid rgba(77,166,255,0.18)',
+              boxShadow: '0 0 28px rgba(77,166,255,0.07)',
             }}
           >
-            🚀 Get a Free Quote
-          </a>
-          
-            <a href="/#reviews"
-            className="glass-badge text-sm px-8 py-4 font-display tracking-wider rounded-lg transition-all"
+            <p
+              className="font-mono text-[10px] uppercase tracking-widest mb-4"
+              style={{ color: '#4da6ff' }}
+            >
+              ✦ Why Choose Us
+            </p>
+            <ul className="space-y-3">
+              {whyUs.map(({ icon, text }) => (
+                <li
+                  key={text}
+                  className="flex items-center gap-3 text-sm leading-snug"
+                  style={{ color: '#e2e8f0' }}
+                >
+                  <span className="text-base leading-none">{icon}</span>
+                  <span>{text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Our Process */}
+          <div
+            className="rounded-xl px-6 py-5 text-left"
             style={{
-              borderColor: 'rgba(255,140,0,0.4)',
-              color: '#ffb347',
+              background: 'rgba(124,58,237,0.05)',
+              border: '1px solid rgba(124,58,237,0.18)',
+              boxShadow: '0 0 28px rgba(124,58,237,0.07)',
             }}
           >
-            📊 See Our Work
-          </a>
+            <p
+              className="font-mono text-[10px] uppercase tracking-widest mb-4"
+              style={{ color: '#a78bfa' }}
+            >
+              ✦ Our Process
+            </p>
+            <ol className="space-y-3">
+              {process.map(({ num, text }) => (
+                <li
+                  key={num}
+                  className="flex items-center gap-3 text-sm leading-snug"
+                  style={{ color: '#e2e8f0' }}
+                >
+                  <span
+                    className="font-mono text-xs font-bold shrink-0"
+                    style={{ color: '#7c3aed' }}
+                  >
+                    {num}
+                  </span>
+                  <span>{text}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
 
         {/* Scroll indicator */}

@@ -8,10 +8,10 @@
    passed via props, and GSAP color tweens outside the Tailwind pipeline) */
 /* ------------------------------------------------------------------ */
 :root {
-  /* surfaces */
-  --color-space: #050a18;
-  --color-space-mid: #0d1b3e;
-  --color-space-panel: #080f22;
+  /* surfaces — matches approved design system: #0A0A0F → #111827 → #0F172A */
+  --color-space: #0a0a0f;
+  --color-space-mid: #111827;
+  --color-space-panel: #0f172a;
 
   /* borders */
   --color-line: #1e3a6e;
@@ -38,8 +38,10 @@
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* motion */
+  /* motion — spec: 0.4–0.6s duration, easeOut, no bounce/rotate */
   --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration-standard: 0.5s;
 }
 
 /* ------------------------------------------------------------------ */
@@ -55,8 +57,15 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Base background: gradient + very light purple/cyan glow, per spec.
+   background-attachment: fixed keeps the glow stable while scrolling. */
 body {
   background-color: var(--color-space);
+  background-image:
+    radial-gradient(ellipse 70% 45% at 50% -8%, rgba(124, 58, 237, 0.07), transparent 70%),
+    radial-gradient(ellipse 55% 40% at 100% 100%, rgba(0, 212, 255, 0.05), transparent 70%),
+    linear-gradient(180deg, var(--color-space) 0%, var(--color-space-mid) 55%, var(--color-space-panel) 100%);
+  background-attachment: fixed;
   color: var(--color-ink-primary);
   font-family: var(--font-body);
   line-height: 1.6;
@@ -139,6 +148,12 @@ p {
 /* Reusable primitives derived from the approved blueprint components  */
 /* (glass cards, tags, pills, neon dividers) so section components in  */
 /* later phases compose from a single shared vocabulary.               */
+/*                                                                      */
+/* IMPORTANT — glass is scoped to Navbar / Pricing Cards / Contact Form */
+/* only, per the design system. Other sections (Stats, Services, etc.) */
+/* should NOT use .glass-card / .glass-card-* — use .solid-panel below */
+/* instead. This file can't enforce that; it has to be fixed per       */
+/* component (see note below the file).                                */
 /* ------------------------------------------------------------------ */
 
 /* Layout */
@@ -150,13 +165,32 @@ p {
   @apply py-20 md:py-28;
 }
 
-/* Glassmorphism surfaces */
+/* Non-glass surface for sections that should stay flat/solid per spec
+   (e.g. Stats, Services cards, Hero — anything outside the 3 approved
+   glass spots). */
+.solid-panel {
+  @apply rounded-card border border-white/[0.06] bg-white/[0.03];
+}
+
+/* Glassmorphism surfaces — spec: blur 12–16px, opacity 8–12%, border
+   1px solid rgba(255,255,255,0.08). Use ONLY on Navbar, Pricing Cards,
+   Contact Form. */
 .glass-panel {
-  @apply rounded-card border border-white/[0.07] bg-white/[0.025] backdrop-blur-md;
+  @apply rounded-card border border-white/[0.08] bg-white/[0.10];
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .glass-card {
-  @apply glass-panel p-4 transition-colors duration-300;
+  @apply glass-panel p-4;
+  transition: all var(--duration-standard) var(--ease-out);
+}
+
+.glass-card:hover {
+  @apply bg-white/[0.12];
+  border-color: rgba(77, 166, 255, 0.45);
+  box-shadow: 0 12px 45px rgba(0, 102, 255, 0.25);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .glass-card-blue {
@@ -214,13 +248,18 @@ p {
   );
 }
 
-/* Buttons */
+/* Buttons — duration bumped to spec range (0.4–0.6s), easeOut */
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cta-gradient px-7 py-3.5 font-body text-sm font-bold text-white shadow-neon-blue transition-opacity duration-200 hover:opacity-90;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cta-gradient px-7 py-3.5 font-body text-sm font-bold text-white shadow-neon-blue hover:opacity-90;
+  transition: opacity var(--duration-standard) var(--ease-out), transform var(--duration-standard) var(--ease-out);
+}
+.btn-primary:hover {
+  transform: scale(1.02);
 }
 
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-neon-purple-light/40 px-7 py-3.5 font-body text-sm font-bold text-neon-purple-light transition-colors duration-200 hover:bg-neon-purple/10;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-neon-purple-light/40 px-7 py-3.5 font-body text-sm font-bold text-neon-purple-light hover:bg-neon-purple/10;
+  transition: background-color var(--duration-standard) var(--ease-out);
 }
 
 /* Neon focus ring — keyboard accessibility, applied globally */
@@ -231,56 +270,43 @@ p {
 
 /* ------------------------------------------------------------------ */
 /* PHASE 5 ADDITIONS — form inputs (Contact form, Newsletter, ROI calc) */
-/* Appended only; no existing rules modified.                          */
 /* ------------------------------------------------------------------ */
 .form-input {
-  @apply w-full rounded-lg bg-white/[0.03] border border-white/10 px-4 py-3 text-sm text-ink-primary placeholder:text-ink-muted transition-colors duration-200 focus:outline-none focus:border-neon-blue-light;
-}
-/* ---------------------------------------------------------------- */
-/* GLASSMORPHISM + GLOW SYSTEM — Appended only; no existing rules modified. */
-/* ---------------------------------------------------------------- */
-
-.glass-card {
-  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.37), inset 0 1px 0 rgba(255,255,255,0.1);
-  transition: all 0.35s ease;
+  @apply w-full rounded-lg bg-white/[0.03] border border-white/10 px-4 py-3 text-sm text-ink-primary placeholder:text-ink-muted focus:outline-none focus:border-neon-blue-light;
+  transition: border-color var(--duration-standard) var(--ease-out);
 }
 
-.glass-card:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
-  border-color: rgba(77,166,255,0.45);
-  box-shadow: 0 12px 45px rgba(0,102,255,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
-  transform: translateY(-6px);
-}
+/* ---------------------------------------------------------------- */
+/* GLASS COMPONENTS — Navbar, Pricing Cards, Contact Form ONLY.      */
+/* Spec: blur 12–16px, opacity 8–12%, border rgba(255,255,255,0.08), */
+/* motion 0.4–0.6s easeOut, hover scale 1.02–1.03, no bounce/rotate. */
+/* ---------------------------------------------------------------- */
 
 .glass-nav {
-  background: rgba(8,15,34,0.55);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(8, 15, 34, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-button {
-  background: linear-gradient(135deg, rgba(0,102,255,0.28), rgba(124,58,237,0.28));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(77,166,255,0.45);
-  box-shadow: 0 4px 24px rgba(0,102,255,0.35);
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0.28), rgba(124, 58, 237, 0.28));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 102, 255, 0.35);
+  transition: all var(--duration-standard) var(--ease-out);
 }
 
 .glass-button:hover {
-  box-shadow: 0 6px 32px rgba(0,102,255,0.55);
+  box-shadow: 0 6px 32px rgba(0, 102, 255, 0.5);
   transform: translateY(-2px) scale(1.02);
 }
 
 .glass-badge {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all var(--duration-standard) var(--ease-out);
 }

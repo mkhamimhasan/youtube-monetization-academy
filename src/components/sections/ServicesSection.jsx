@@ -62,11 +62,15 @@ function TiltCard({ service, index }) {
       onMouseMove={onMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={onLeave}
-      className="relative rounded-card overflow-hidden transition-all duration-75"
+      className="relative rounded-card overflow-hidden"
       style={{
         border: `1px solid ${service.border}`,
         background: service.bg,
         transform: `perspective(600px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) scale(${hovered ? 1.02 : 1})`,
+        // Transform stays fast so the tilt tracks the cursor smoothly.
+        // Box-shadow (the hover glow) uses the spec's 0.4–0.6s easeOut,
+        // since that's the perceivable "transition" the spec refers to.
+        transition: 'transform 0.15s ease-out, box-shadow 0.5s ease-out',
         boxShadow: hovered ? `0 0 28px ${service.accent}30` : 'none',
         animation: `fade-up 0.6s ease-out ${index * 0.1}s both`,
       }}
@@ -101,7 +105,7 @@ function TiltCard({ service, index }) {
 
       {/* Shimmer line at top */}
       <div
-        className="absolute top-0 left-0 right-0 h-px transition-opacity duration-300"
+        className="absolute top-0 left-0 right-0 h-px transition-opacity duration-500 ease-out"
         style={{
           background: `linear-gradient(90deg, transparent, ${service.accent}, transparent)`,
           opacity: hovered ? 1 : 0.4,

@@ -32,7 +32,7 @@ export default function Navbar() {
   }, [open]);
 
   const linkBase =
-    'font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200';
+    'font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-500 ease-out';
   const linkActive  = 'text-cyan-400';
   const linkInactive = 'text-white hover:text-cyan-400';
 
@@ -40,7 +40,7 @@ export default function Navbar() {
     <header
       ref={navRef}
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out',
         scrolled
           ? 'glass-nav'
           : 'bg-transparent border-b border-transparent'
@@ -89,7 +89,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-ink-secondary hover:text-ink-primary transition-colors focus-neon rounded p-1"
+          className="md:hidden text-ink-secondary hover:text-ink-primary transition-colors duration-500 ease-out focus-neon rounded p-1"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Close menu' : 'Open menu'}
         >

@@ -5,12 +5,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Base surfaces
+        // Base surfaces — matches approved design system: #0A0A0F → #111827 → #0F172A
         space: {
-          DEFAULT: '#050a18', // primary background
-          deep: '#050a18',
-          mid: '#0d1b3e', // gradient midpoint
-          panel: '#080f22', // tabs/nav surface
+          DEFAULT: '#0a0a0f', // primary background
+          deep: '#0a0a0f',
+          mid: '#111827', // gradient midpoint
+          panel: '#0f172a', // tabs/nav surface / final gradient stop
         },
         // Border / hairline
         line: {
@@ -47,7 +47,7 @@ export default {
       },
       backgroundImage: {
         'hero-gradient':
-          'linear-gradient(135deg, #050a18 0%, #0d1b3e 60%, #050a18 100%)',
+          'linear-gradient(135deg, #0a0a0f 0%, #111827 60%, #0f172a 100%)',
         'text-gradient-hero':
           'linear-gradient(135deg, #ffffff 0%, #4da6ff 50%, #a78bfa 100%)',
         'cta-gradient': 'linear-gradient(135deg, #0066ff, #7c3aed)',
@@ -59,7 +59,7 @@ export default {
         'neon-cyan': '0 0 24px rgba(0,212,255,0.3)',
         'neon-purple': '0 0 24px rgba(124,58,237,0.35)',
         'neon-green': '0 0 24px rgba(52,211,153,0.3)',
-        'glass': '0 8px 32px rgba(0,0,0,0.35)',
+        glass: '0 8px 32px rgba(0,0,0,0.35)',
       },
       borderRadius: {
         card: '9px',
@@ -83,6 +83,11 @@ export default {
           '100%': { opacity: 1, transform: 'translateY(0px)' },
         },
       },
+      // Motion durations kept within spec's 0.4–0.6s window where the
+      // animation drives entrance/emphasis (fade-up). Ambient loops
+      // (marquee, float, pulse-glow) are intentionally slower since
+      // they're background motion, not interaction feedback — spec's
+      // 0.4–0.6s guidance is for hover/transition states.
       animation: {
         'pulse-glow': 'pulse-glow 2.4s ease-in-out infinite',
         marquee: 'marquee 25s linear infinite',
