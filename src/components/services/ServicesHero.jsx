@@ -8,13 +8,12 @@ export default function ServicesHero() {
       <div className="container-shell relative z-10 text-center">
         <p className="kicker-purple justify-center inline-flex mb-4">⚙️ Our Services</p>
         <h1 className="mb-5">
-          <span className="text-ink-primary">Every Lever That</span>
+          <span className="text-ink-primary">Websites & Videos</span>
           <br />
-          <span className="text-gradient-hero">Moves YouTube Revenue</span>
+          <span className="text-gradient-hero">That Convert</span>
         </h1>
         <p className="text-ink-secondary text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-          CPM optimization, AI-driven content strategy, multi-stream monetization, and a thumbnail lab — bundled
-          into one integrated system, run by specialists who live inside the algorithm.
+          Custom websites, scroll-stopping videos, and content that turns viewers into paying clients — built by specialists who live inside the algorithm.
         </p>
       </div>
     </section>
