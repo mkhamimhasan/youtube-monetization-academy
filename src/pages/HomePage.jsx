@@ -7,15 +7,8 @@ import ReviewsSection        from '@/components/sections/ReviewsSection';
 import PricingTeaserSection  from '@/components/sections/PricingTeaserSection';
 import FAQSection            from '@/components/sections/FAQSection';
 import FinalCTASection       from '@/components/sections/FinalCTASection';
+import YouTubeSection        from '@/components/home/YouTubeSection';
 
-/**
- * HomePage — 9 content sections (Footer is in RootLayout).
- * Section order matches the locked v3 blueprint exactly:
- *   01 Hero · 02 Trust Bar · 03 Services · 04 Why Us ·
- *   05 Portfolio Teaser · 06 Reviews · 07 Pricing Teaser ·
- *   08 FAQ · 09 Final CTA
- *   (10 Footer rendered by RootLayout)
- */
 export default function HomePage() {
   return (
     <>
@@ -25,6 +18,7 @@ export default function HomePage() {
       <WhyUsSection />
       <PortfolioTeaserSection />
       <ReviewsSection />
+      <YouTubeSection />
       <PricingTeaserSection />
       <FAQSection />
       <FinalCTASection />
