@@ -86,15 +86,16 @@
 ];
 
 export default function ReviewsSection() {
-  const [isDesktop, setIsDesktop] = React.useState(false);
-  React.useEffect(() => {
-    const checkScreen = () => setIsDesktop(window.innerWidth >= 768);
-    checkScreen();
-    window.addEventListener('resize', checkScreen);
-    return () => window.removeEventListener('resize', checkScreen);
-  }, []);
+  
   return (
-    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c] relative z-10 pt-10 md:pt-20 pb-16 bg-[#08080c] yta-reviews-dome relative z-10 pb-16 bg-[#08080c] relative z-10 mt-0 md:-mt-24 pt-12 md:pt-28 pb-16 bg-[#08080c] [clip-path:none] md:[clip-path:ellipse(180%_100%_at_50%_100%)] target-reviews-dome relative z-10 pb-16 bg-[#08080c] force-flat-mobile relative z-10 pb-16 bg-[#08080c] reviews-viewport-sync relative z-10 pb-16 bg-[#08080c] relative z-10 pb-16 bg-[#08080c]"  style={{ clipPath: isDesktop ? "ellipse(180% 100% at 50% 100%)" : "none", marginTop: isDesktop ? "-6rem" : "0px", paddingTop: isDesktop ? "7rem" : "3.5rem" }}>
+    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c] relative z-10 pt-10 md:pt-20 pb-16 bg-[#08080c] yta-reviews-dome relative z-10 pb-16 bg-[#08080c] relative z-10 mt-0 md:-mt-24 pt-12 md:pt-28 pb-16 bg-[#08080c] [clip-path:none] md:[clip-path:ellipse(180%_100%_at_50%_100%)] target-reviews-dome relative z-10 pb-16 bg-[#08080c] force-flat-mobile relative z-10 pb-16 bg-[#08080c] reviews-viewport-sync relative z-10 pb-16 bg-[#08080c] relative z-10 pb-16 bg-[#08080c] relative z-10 mt-0 md:-mt-24 pt-12 md:pt-28 pb-16 bg-[#08080c] [clip-path:none] md:[clip-path:ellipse(180%_100%_at_50%_100%)]"  >
+      {/* Dynamic Aura */}
+      <div 
+        className="absolute -top-20 md:-top-40 left-1/2 -translate-x-1/2 w-full md:w-[1200px] h-[200px] md:h-[450px] rounded-full blur-[50px] md:blur-[90px] opacity-75 md:opacity-80 pointer-events-none -z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(236,72,153,0.85) 0%, rgba(168,85,247,0.55) 45%, rgba(99,102,241,0.2) 65%, transparent 80%)'
+        }}
+      />
       {/* Background Aurora */}
       <div 
         className="absolute -top-16 md:-top-40 left-1/2 -translate-x-1/2 w-full md:w-[1200px] h-[180px] md:h-[450px] rounded-full blur-[50px] md:blur-[90px] opacity-70 md:opacity-80 pointer-events-none -z-10"
@@ -380,6 +381,7 @@ export default function ReviewsSection() {
     </section>
   );
 }
+
 
 
 
