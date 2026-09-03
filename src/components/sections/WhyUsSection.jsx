@@ -101,6 +101,13 @@ function USPItem({ usp, index }) {
 export default function WhyUsSection() {
   return (
     <section id="why-us" className="section-padding">
+      {/* Top Transition Fade */}
+      <div 
+        className="w-full h-24 -mt-24 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, #08080c 100%)'
+        }}
+      />
       <div className="container-shell">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
@@ -135,6 +142,7 @@ export default function WhyUsSection() {
     </section>
   );
 }
+
 
 
 

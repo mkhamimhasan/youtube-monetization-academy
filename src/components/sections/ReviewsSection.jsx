@@ -1,4 +1,4 @@
-const VALUE_PROPS = [
+﻿const VALUE_PROPS = [
   {
     id: 'legal',
     title: 'Legal Protection & IP Buyout',
@@ -87,7 +87,30 @@ const VALUE_PROPS = [
 
 export default function ReviewsSection() {
   return (
-    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12 ">
+    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible">
+      {/* Magnific VFX - Ambient Nebula Flare */}
+      <div 
+        className="absolute -top-48 left-1/2 -translate-x-1/2 w-[1100px] max-w-[95vw] h-[450px] rounded-full blur-[90px] opacity-85 pointer-events-none z-0 animate-pulse"
+        style={{
+          background: 'radial-gradient(circle, rgba(236,72,153,0.85) 0%, rgba(168,85,247,0.5) 45%, rgba(99,102,241,0.2) 65%, transparent 80%)',
+          animationDuration: '5s'
+        }}
+      />
+      <div 
+        className="absolute -top-20 left-1/2 -translate-x-1/2 w-[550px] max-w-[75vw] h-[160px] rounded-full blur-[40px] opacity-90 pointer-events-none z-0"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.95) 0%, rgba(244,114,182,0.6) 40%, transparent 75%)'
+        }}
+      />
+
+      {/* কনভেক্স ডোম আর্চ (যা সোজা কাট লাইন পুরোপুরি মুছে ফেলে ইমেজ ২-এর উত্তল কার্ভ তৈরি করে) */}
+      <div 
+        className="absolute -top-16 inset-x-0 h-16 pointer-events-none z-0"
+        style={{
+          background: '#08080c',
+          borderRadius: '50% 50% 0 0 / 100% 100% 0 0'
+        }}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
@@ -157,6 +180,7 @@ export default function ReviewsSection() {
     </section>
   );
 }
+
 
 
 
