@@ -87,7 +87,38 @@
 
 export default function ReviewsSection() {
   return (
-    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c] relative z-10 pt-10 md:pt-20 pb-16 bg-[#08080c] yta-reviews-dome relative z-10 pb-16 bg-[#08080c] relative z-10 mt-0 md:-mt-24 pt-12 md:pt-28 pb-16 bg-[#08080c] [clip-path:none] md:[clip-path:ellipse(180%_100%_at_50%_100%)] target-reviews-dome relative z-10 pb-16 bg-[#08080c]" >
+    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c] relative z-10 pt-10 md:pt-20 pb-16 bg-[#08080c] yta-reviews-dome relative z-10 pb-16 bg-[#08080c] relative z-10 mt-0 md:-mt-24 pt-12 md:pt-28 pb-16 bg-[#08080c] [clip-path:none] md:[clip-path:ellipse(180%_100%_at_50%_100%)] target-reviews-dome relative z-10 pb-16 bg-[#08080c] force-flat-mobile relative z-10 pb-16 bg-[#08080c]" >
+      {/* Background Soft Glow */}
+      <div 
+        className="absolute -top-16 md:-top-40 left-1/2 -translate-x-1/2 w-full md:w-[1200px] h-[180px] md:h-[450px] rounded-full blur-[50px] md:blur-[90px] opacity-70 md:opacity-80 pointer-events-none -z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(236,72,153,0.85) 0%, rgba(168,85,247,0.55) 45%, rgba(99,102,241,0.2) 65%, transparent 80%)'
+        }}
+      />
+      <div 
+        className="hidden md:block absolute -top-8 left-1/2 -translate-x-1/2 w-[600px] max-w-[85vw] h-[80px] rounded-full blur-[30px] opacity-75 pointer-events-none z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(244,114,182,0.5) 40%, transparent 80%)'
+        }}
+      />
+
+      <style>{`
+        /* মোবাইলে কোনো কার্ভ থাকবে না - একদম ফ্ল্যাট সোজা বর্ডার */
+        .force-flat-mobile {
+          clip-path: none !important;
+          border-radius: 0 !important;
+          margin-top: 0 !important;
+          padding-top: 3rem !important;
+        }
+        /* ল্যাপটপ ও ডেস্কটপে ১৮০% ডোম */
+        @media (min-width: 768px) {
+          .force-flat-mobile {
+            clip-path: ellipse(180% 100% at 50% 100%) !important;
+            margin-top: -6rem !important;
+            padding-top: 7rem !important;
+          }
+        }
+      `}</style>
       {/* Background Ambient Glow */}
       <div 
         className="absolute -top-24 md:-top-40 left-1/2 -translate-x-1/2 w-[95vw] md:w-[1200px] h-[220px] md:h-[450px] rounded-full blur-[60px] md:blur-[90px] opacity-75 md:opacity-80 pointer-events-none -z-10"
@@ -304,6 +335,7 @@ export default function ReviewsSection() {
     </section>
   );
 }
+
 
 
 
