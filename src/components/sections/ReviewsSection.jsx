@@ -87,7 +87,23 @@
 
 export default function ReviewsSection() {
   return (
-    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c]" style={{ clipPath: "ellipse(180% 100% at 50% 100%)" }}>
+    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c] relative z-10 pt-10 md:pt-20 pb-16 bg-[#08080c]" style={{ clipPath: "ellipse(180% 100% at 50% 100%)" }}>
+      {/* ১. অ্যাম্বিয়েন্ট অরোরা গ্লো */}
+      <div 
+        className="absolute -top-32 md:-top-44 left-1/2 -translate-x-1/2 w-[100vw] md:w-[1200px] h-[300px] md:h-[450px] rounded-full blur-[60px] md:blur-[100px] opacity-80 pointer-events-none -z-10 animate-pulse"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(236,72,153,0.85) 0%, rgba(168,85,247,0.55) 45%, rgba(99,102,241,0.2) 65%, transparent 80%)',
+          animationDuration: '6s'
+        }}
+      />
+
+      {/* ২. প্রিমিয়াম কনভেক্স ডোম (মোবাইলে একদম মৃদু ও নিখুঁত কার্ভ, ল্যাপটপে ফুল ডোম) */}
+      <div className="absolute -top-8 md:-top-16 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-10">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="block w-full h-8 md:h-16">
+          <path d="M0,80 Q720,0 1440,80 L1440,80 L0,80 Z" fill="#08080c" />
+          <path d="M0,80 Q720,0 1440,80" fill="none" stroke="rgba(244,114,182,0.3)" strokeWidth="1.2" />
+        </svg>
+      </div>
       <style>{`
         .magnific-responsive-dome {
           clip-path: none !important;
@@ -246,6 +262,7 @@ export default function ReviewsSection() {
     </section>
   );
 }
+
 
 
 
