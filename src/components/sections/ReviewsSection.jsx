@@ -87,7 +87,20 @@
 
 export default function ReviewsSection() {
   return (
-    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible">
+    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c]" style={{ clipPath: "ellipse(180% 100% at 50% 100%)" }}>
+      {/* Centered Organic Atmosphere */}
+      <div 
+        className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1200px] max-w-[100vw] h-[450px] rounded-full blur-[90px] opacity-80 pointer-events-none -z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(236,72,153,0.85) 0%, rgba(168,85,247,0.55) 45%, rgba(99,102,241,0.2) 65%, transparent 80%)'
+        }}
+      />
+      <div 
+        className="absolute -top-8 left-1/2 -translate-x-1/2 w-[600px] max-w-[85vw] h-[80px] rounded-full blur-[30px] opacity-75 pointer-events-none z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(244,114,182,0.5) 40%, transparent 80%)'
+        }}
+      />
       {/* Magnific VFX - Ambient Nebula Flare */}
       <div 
         className="absolute -top-48 left-1/2 -translate-x-1/2 w-[1100px] max-w-[95vw] h-[450px] rounded-full blur-[90px] opacity-85 pointer-events-none z-0 animate-pulse"
@@ -180,6 +193,7 @@ export default function ReviewsSection() {
     </section>
   );
 }
+
 
 
 
