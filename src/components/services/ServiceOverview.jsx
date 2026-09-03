@@ -6,7 +6,7 @@ const PILLARS = [
 
 export default function ServiceOverview() {
   return (
-    <section className="section-padding border-t border-line">
+    <section className="section-padding ">
       <div className="container-shell">
         <div className="text-center mb-12">
           <p className="kicker justify-center inline-flex mb-2">🧭 How It Works</p>
@@ -28,3 +28,6 @@ export default function ServiceOverview() {
     </section>
   );
 }
+
+
+

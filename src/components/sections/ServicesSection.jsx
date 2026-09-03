@@ -1,149 +1,107 @@
-import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/config/routes';
 
-const SERVICES = [
+const CORE_SERVICES = [
   {
-    icon: '🌐',
-    title: 'Website Design & Development',
-    desc: 'Custom-built websites — from simple landing pages to full business sites — designed to load fast, look sharp, and work on every device.',
-    tags: ['Responsive', 'React / Next.js', 'SEO Ready'],
-    accent: '#4da6ff',
-    border: 'rgba(0,102,255,0.3)',
-    bg: 'rgba(0,102,255,0.05)',
+    id: '01',
+    title: 'Hyper-Scale Code Architecture',
+    desc: 'Bespoke React systems, edge caching, and zero-bloat interactive layers engineered for ultra-fast response times and effortless global scaling.',
+    deliverable: 'Web Architecture',
+    accent: '#06b6d4',
   },
   {
-    icon: '🎬',
-    title: 'Video Editing',
-    desc: 'Clean, engaging edits for YouTube, social media, ads, and brand content — pacing, sound design, and captions handled end-to-end.',
-    tags: ['YouTube', 'Reels/Shorts', 'Ads'],
-    accent: '#a78bfa',
-    border: 'rgba(124,58,237,0.3)',
-    bg: 'rgba(124,58,237,0.05)',
+    id: '02',
+    title: 'Acoustic Synthesis & Scoring',
+    desc: 'Proprietary electronic music production, live festival soundscapes, and sensory-driven audio reactive compositions mastered for cinema presentation.',
+    deliverable: 'Lossless Sound Master',
+    accent: '#eab308',
   },
   {
-    icon: '🎨',
-    title: 'Motion Graphics & Color Grading',
-    desc: 'Polished intros, lower-thirds, transitions, and cinematic color grading that give every project a professional, consistent look.',
-    tags: ['Motion Design', 'Color Grade', 'Branding'],
-    accent: '#34d399',
-    border: 'rgba(52,211,153,0.3)',
-    bg: 'rgba(52,211,153,0.04)',
+    id: '03',
+    title: 'Multimodal Generative Workflows',
+    desc: 'End-to-end synthetic pipelines, AI world-building documentaries, and automated asset generation workflows deployed for cinematic IP.',
+    deliverable: 'Neural Model Pipelines',
+    accent: '#f43f5e',
   },
   {
-    icon: '🛒',
-    title: 'Landing Pages & E-commerce',
-    desc: 'Conversion-focused landing pages and online stores built to turn visitors into customers, with clean checkout and fast performance.',
-    tags: ['Conversion', 'E-commerce', 'UI/UX'],
-    accent: '#fbbf24',
-    border: 'rgba(251,191,36,0.3)',
-    bg: 'rgba(251,191,36,0.04)',
+    id: '04',
+    title: 'Spatial Simulation & Motion Media',
+    desc: 'Procedural 3D motion simulations, technological mechanics, and high-impact visual breakdowns engineered for breakthrough tech communication.',
+    deliverable: 'Interactive 3D Assets',
+    accent: '#10b981',
   },
 ];
 
-function TiltCard({ service, index }) {
-  const cardRef = useRef(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [hovered, setHovered] = useState(false);
-
-  const onMove = (e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 14;
-    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -14;
-    setTilt({ x, y });
-  };
-  const onLeave = () => { setTilt({ x: 0, y: 0 }); setHovered(false); };
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={onMove}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={onLeave}
-      className="relative rounded-card overflow-hidden"
-      style={{
-        border: `1px solid ${service.border}`,
-        background: service.bg,
-        transform: `perspective(600px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) scale(${hovered ? 1.02 : 1})`,
-        // Transform stays fast so the tilt tracks the cursor smoothly.
-        // Box-shadow (the hover glow) uses the spec's 0.4–0.6s easeOut,
-        // since that's the perceivable "transition" the spec refers to.
-        transition: 'transform 0.15s ease-out, box-shadow 0.5s ease-out',
-        boxShadow: hovered ? `0 0 28px ${service.accent}30` : 'none',
-        animation: `fade-up 0.6s ease-out ${index * 0.1}s both`,
-      }}
-    >
-      <div className="p-6">
-        <div className="text-4xl mb-4">{service.icon}</div>
-        <h3
-          className="font-display text-base font-bold mb-3"
-          style={{ color: service.accent }}
-        >
-          {service.title}
-        </h3>
-        <p className="text-ink-secondary text-sm leading-relaxed mb-4">
-          {service.desc}
-        </p>
-        <div className="flex flex-wrap gap-1.5">
-          {service.tags.map((tag) => (
-            <span
-              key={tag}
-              className="font-mono text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
-              style={{
-                color: service.accent,
-                background: `${service.accent}15`,
-                border: `1px solid ${service.accent}30`,
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Shimmer line at top */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px transition-opacity duration-500 ease-out"
-        style={{
-          background: `linear-gradient(90deg, transparent, ${service.accent}, transparent)`,
-          opacity: hovered ? 1 : 0.4,
-        }}
-      />
-    </div>
-  );
-}
-
 export default function ServicesSection() {
   return (
-    <section className="section-padding" id="services">
-      <div className="container-shell">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <p className="kicker justify-center inline-flex mb-2">⚙️ What We Do</p>
-          <h2 className="text-gradient-hero mb-4">
-            Websites & Videos, Done Right
-          </h2>
-          <p className="text-ink-secondary max-w-xl mx-auto text-sm leading-relaxed">
-            From custom-built websites to polished video edits — everything your brand needs to look professional online, handled under one roof.
-          </p>
+    <section 
+      id="services" 
+      className="relative w-full bg-[#eceae5] text-[#121110] py-28 px-6 md:px-12 border-none outline-none -mt-px"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Editorial Section Intro */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-20 items-end">
+          <div className="md:col-span-8">
+            <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-neutral-500 font-semibold mb-4 block">
+              Engineered Capabilities
+            </span>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-[-0.03em] text-neutral-900 leading-[1.05]">
+              Discipline & Practice
+            </h2>
+          </div>
+          <div className="md:col-span-4">
+            <p className="text-neutral-600 text-sm sm:text-base leading-relaxed font-medium">
+              Merging technical full-stack architecture with cinema-grade audiovisual production to establish authoritative digital IP.
+            </p>
+          </div>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
-          {SERVICES.map((service, i) => (
-            <TiltCard key={service.title} service={service} index={i} />
+        {/* Minimalist Swiss Service Rows (Paul Kalkbrenner Style) */}
+        <div className="mb-16">
+          {CORE_SERVICES.map((s) => (
+            <div
+              key={s.id}
+              className="group py-10 border-b border-neutral-400/50 grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline transition-all duration-300 hover:bg-[#e4e1d9]/60 px-4 rounded-xl"
+            >
+              <div className="md:col-span-1">
+                <span className="font-mono text-sm font-bold text-neutral-400 group-hover:text-neutral-900 transition-colors">
+                  /{s.id}
+                </span>
+              </div>
+
+              <div className="md:col-span-5">
+                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 group-hover:translate-x-2 transition-transform duration-300">
+                  {s.title}
+                </h3>
+              </div>
+
+              <div className="md:col-span-4">
+                <p className="text-sm text-neutral-600 leading-relaxed font-normal">
+                  {s.desc}
+                </p>
+              </div>
+
+              <div className="md:col-span-2 flex md:justify-end items-center gap-2">
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ backgroundColor: s.accent }}
+                />
+                <span className="text-[11px] font-mono tracking-wider uppercase font-semibold text-neutral-700">
+                  {s.deliverable}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* CTA link */}
-        <div className="text-center">
+        {/* Bottom Floating Glass Capsule Bar */}
+        <div className="flex justify-center">
           <Link
-            to={ROUTES.SERVICES}
-            className="btn-ghost text-sm px-8 py-3"
+            to={ROUTES.SERVICES || '/services'}
+            className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-neutral-900 text-white font-mono text-xs uppercase tracking-widest hover:bg-black transition-all shadow-xl hover:scale-105"
           >
-            View All Services →
+            <span>Explore Technical Matrix</span>
+            <span className="text-neutral-400">↗</span>
           </Link>
         </div>
       </div>

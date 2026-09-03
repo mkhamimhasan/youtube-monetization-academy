@@ -94,7 +94,7 @@ export default function PortfolioShowcase() {
   );
 
   return (
-    <section className="section-padding border-t border-line" id="portfolio-showcase">
+    <section className="section-padding " id="portfolio-showcase">
       <div className="container-shell">
         {/* Filter bar */}
         <div className="flex flex-wrap justify-center gap-2 mb-10 scrollbar-none">
@@ -128,3 +128,5 @@ export default function PortfolioShowcase() {
     </section>
   );
 }
+
+

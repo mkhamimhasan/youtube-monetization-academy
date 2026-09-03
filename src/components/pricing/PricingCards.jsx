@@ -154,7 +154,7 @@ function PlanCard({ plan }) {
 
 export default function PricingCards() {
   return (
-    <section className="section-padding border-t border-line" id="pricing-cards">
+    <section className="section-padding " id="pricing-cards">
       <div className="container-shell">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start mb-16">
           {PLANS.map((plan) => (
@@ -203,3 +203,5 @@ export default function PricingCards() {
     </section>
   );
 }
+
+

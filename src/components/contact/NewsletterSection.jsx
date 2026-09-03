@@ -13,7 +13,7 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="section-padding border-t border-line">
+    <section className="section-padding ">
       <div className="container-shell">
         <div className="max-w-2xl mx-auto glass-panel p-8 md:p-10 text-center relative overflow-hidden">
           <div
@@ -57,3 +57,6 @@ export default function NewsletterSection() {
     </section>
   );
 }
+
+
+

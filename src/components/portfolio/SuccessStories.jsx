@@ -113,7 +113,7 @@ export default function SuccessStoriesGrid({ stories = SUCCESS_STORIES }) {
                   </span>
                 ))}
               </div>
-              <div className="border-t border-line pt-4">
+              <div className=" pt-4">
                 <p className="text-[10px] text-ink-muted">Timeframe</p>
                 <p className="font-mono text-sm text-ink-secondary">{active.timeframe}</p>
               </div>
@@ -124,3 +124,5 @@ export default function SuccessStoriesGrid({ stories = SUCCESS_STORIES }) {
     </>
   );
 }
+
+

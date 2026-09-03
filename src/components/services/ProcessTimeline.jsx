@@ -59,7 +59,7 @@ export default function ProcessTimeline() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-padding border-t border-line relative">
+    <section ref={sectionRef} className="section-padding  relative">
       <div className="container-shell">
         <div className="text-center mb-16">
           <p className="kicker-amber justify-center inline-flex mb-2">🗺️ Our Process</p>
@@ -112,3 +112,6 @@ export default function ProcessTimeline() {
     </section>
   );
 }
+
+
+

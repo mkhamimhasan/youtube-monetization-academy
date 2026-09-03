@@ -63,7 +63,7 @@ function ValueCard({ value, index }) {
 
 export default function CoreValuesSection() {
   return (
-    <section className="section-padding border-t border-line">
+    <section className="section-padding ">
       <div className="container-shell">
         <div className="text-center mb-12">
           <p className="kicker-amber justify-center inline-flex mb-2">💎 Core Values</p>
@@ -82,3 +82,6 @@ export default function CoreValuesSection() {
     </section>
   );
 }
+
+
+

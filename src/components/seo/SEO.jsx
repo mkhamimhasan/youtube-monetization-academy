@@ -82,3 +82,6 @@ export default function SEO({
 }
 
 export { SITE_NAME, SITE_URL, DEFAULT_IMAGE };
+
+
+

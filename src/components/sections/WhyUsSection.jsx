@@ -100,7 +100,7 @@ function USPItem({ usp, index }) {
 
 export default function WhyUsSection() {
   return (
-    <section id="why-us" className="section-padding border-t border-line">
+    <section id="why-us" className="section-padding">
       <div className="container-shell">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
@@ -135,3 +135,10 @@ export default function WhyUsSection() {
     </section>
   );
 }
+
+
+
+
+
+
+

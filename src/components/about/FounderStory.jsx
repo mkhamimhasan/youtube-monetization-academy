@@ -35,7 +35,7 @@ export default function FounderStory() {
   const textRef = useReveal();
 
   return (
-    <section className="section-padding border-t border-line">
+    <section className="section-padding ">
       <div className="container-shell">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
           {/* Left — narrative */}
@@ -98,3 +98,6 @@ export default function FounderStory() {
     </section>
   );
 }
+
+
+

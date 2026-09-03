@@ -1,8 +1,8 @@
-﻿import { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 const SERVICES = [
-  { icon: '🌐', title: 'Website Creation', subtitle: 'Modern & Professional', desc: 'Stunning, fast and fully responsive websites with 3D animations and smooth effects.', features: ['Custom Design', '3D Animations', 'Mobile Responsive', 'SEO Optimized', 'Fast Loading'], accent: '#00d4ff', glow: 'rgba(0,212,255,0.2)', tag: 'Web Development' },
-  { icon: '🎬', title: 'Video Creation', subtitle: 'Cinematic & Engaging', desc: 'AI-powered video editing, motion graphics and YouTube-ready content that keeps viewers hooked.', features: ['AI Video Editing', 'Motion Graphics', 'Thumbnail Design', 'YouTube Optimized', 'Voice Over'], accent: '#a78bfa', glow: 'rgba(167,139,250,0.2)', tag: 'Video Production' },
+  { icon: '??', title: 'Website Creation', subtitle: 'Modern & Professional', desc: 'Stunning, fast and fully responsive websites with 3D animations and smooth effects.', features: ['Custom Design', '3D Animations', 'Mobile Responsive', 'SEO Optimized', 'Fast Loading'], accent: '#00d4ff', glow: 'rgba(0,212,255,0.2)', tag: 'Web Development' },
+  { icon: '??', title: 'Video Creation', subtitle: 'Cinematic & Engaging', desc: 'AI-powered video editing, motion graphics and YouTube-ready content that keeps viewers hooked.', features: ['AI Video Editing', 'Motion Graphics', 'Thumbnail Design', 'YouTube Optimized', 'Voice Over'], accent: '#a78bfa', glow: 'rgba(167,139,250,0.2)', tag: 'Video Production' },
 ];
 
 function ServiceCard({ service }) {
@@ -21,8 +21,8 @@ function ServiceCard({ service }) {
         <p className="font-mono text-xs mb-4" style={{ color: service.accent }}>{service.subtitle}</p>
         <p className="text-white/50 text-sm leading-relaxed mb-6">{service.desc}</p>
         <div className="h-px mb-6" style={{ background: `linear-gradient(90deg, ${service.accent}40, transparent)` }} />
-        <ul className="flex flex-col gap-2.5 mb-8 flex-1">{service.features.map((f) => (<li key={f} className="flex items-center gap-3 text-sm text-white/65"><span className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black shrink-0" style={{ background: `${service.accent}20`, color: service.accent }}>✓</span>{f}</li>))}</ul>
-        <button className="w-full font-mono text-xs font-bold py-4 px-6 rounded-xl transition-all duration-300" style={{ background: hovered ? `linear-gradient(135deg, ${service.accent}, ${service.accent}bb)` : `${service.accent}10`, color: hovered ? '#020817' : service.accent, border: `1px solid ${service.accent}50`, boxShadow: hovered ? `0 0 30px ${service.accent}50` : 'none' }}>Learn More →</button>
+        <ul className="flex flex-col gap-2.5 mb-8 flex-1">{service.features.map((f) => (<li key={f} className="flex items-center gap-3 text-sm text-white/65"><span className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black shrink-0" style={{ background: `${service.accent}20`, color: service.accent }}>?</span>{f}</li>))}</ul>
+        <button className="w-full font-mono text-xs font-bold py-4 px-6 rounded-xl transition-all duration-300" style={{ background: hovered ? `linear-gradient(135deg, ${service.accent}, ${service.accent}bb)` : `${service.accent}10`, color: hovered ? '#020817' : service.accent, border: `1px solid ${service.accent}50`, boxShadow: hovered ? `0 0 30px ${service.accent}50` : 'none' }}>Learn More ?</button>
       </div>
     </div>
   );
@@ -30,7 +30,7 @@ function ServiceCard({ service }) {
 
 export default function PricingTeaserSection() {
   return (
-    <section className="section-padding border-t border-white/5 relative overflow-hidden">
+    <section className="section-padding  relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl" style={{ background: 'rgba(0,212,255,0.04)' }} />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-3xl" style={{ background: 'rgba(167,139,250,0.04)' }} />
@@ -48,3 +48,8 @@ export default function PricingTeaserSection() {
     </section>
   );
 }
+
+
+
+
+

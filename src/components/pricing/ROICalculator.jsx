@@ -26,7 +26,7 @@ export default function ProjectEstimator() {
   }, [service, complexity]);
 
   return (
-    <section className="section-padding border-t border-line">
+    <section className="section-padding ">
       <div className="container-shell">
         <div className="text-center mb-12">
           <p className="kicker-green justify-center inline-flex mb-2">🧮 Project Estimator</p>
@@ -87,7 +87,7 @@ export default function ProjectEstimator() {
             </div>
           </div>
 
-          <div className="pt-6 border-t border-line text-center">
+          <div className="pt-6  text-center">
             <p className="font-mono text-[9px] uppercase tracking-widest text-ink-muted mb-2">
               Estimated Range
             </p>
@@ -115,3 +115,5 @@ export default function ProjectEstimator() {
     </section>
   );
 }
+
+

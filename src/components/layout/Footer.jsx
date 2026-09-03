@@ -1,162 +1,71 @@
 import { Link } from 'react-router-dom';
-import { Zap, Youtube, Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
-import { ROUTES, ANCHORS } from '@/config/routes';
-
-const SOCIALS = [
-  { icon: Youtube,   label: 'YouTube',   href: '#', color: 'hover:text-red-400  hover:shadow-[0_0_12px_rgba(239,68,68,0.5)]' },
-  { icon: Instagram, label: 'Instagram', href: '#', color: 'hover:text-pink-400 hover:shadow-[0_0_12px_rgba(236,72,153,0.5)]' },
-  { icon: Linkedin,  label: 'LinkedIn',  href: '#', color: 'hover:text-neon-blue-light hover:shadow-neon-blue' },
-  { icon: Twitter,   label: 'Twitter/X', href: '#', color: 'hover:text-sky-400  hover:shadow-[0_0_12px_rgba(56,189,248,0.5)]' },
-  { icon: Facebook,  label: 'Facebook',  href: '#', color: 'hover:text-blue-400 hover:shadow-[0_0_12px_rgba(96,165,250,0.5)]' },
-];
-
-const NAV_COLS = [
-  {
-    heading: 'Company',
-    links: [
-      { label: 'Home',      to: ROUTES.HOME },
-      { label: 'About Us',  to: ROUTES.ABOUT },
-      { label: 'Services',  to: ROUTES.SERVICES },
-      { label: 'Portfolio', to: ROUTES.PORTFOLIO },
-      { label: 'Pricing',   to: ROUTES.PRICING },
-      { label: 'Contact',   to: ROUTES.CONTACT },
-    ],
-  },
-  {
-    heading: 'Quick Links',
-    links: [
-      { label: 'Why Choose Us', to: ANCHORS.WHY_US },
-      { label: 'Client Reviews', to: ANCHORS.REVIEWS },
-      { label: 'FAQ',            to: ANCHORS.FAQ },
-      { label: 'Apply Now',      to: ANCHORS.APPLY },
-    ],
-  },
-];
+import { ROUTES } from '@/config/routes';
 
 export default function Footer() {
-  const year = new Date().getFullYear();
-
   return (
-    <footer className="relative border-t border-line overflow-hidden">
-      {/* Neon top border glow */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{
-          background:
-            'linear-gradient(90deg, transparent 0%, #0066ff 30%, #7c3aed 70%, transparent 100%)',
-          filter: 'blur(1px)',
-        }}
-      />
-
-      {/* Grid background pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(0,102,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,102,255,0.6) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      />
-
-      <div className="container-shell relative z-10 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-
-          {/* Col 1 — Logo + tagline + socials */}
-          <div className="md:col-span-1">
-            <Link to={ROUTES.HOME} className="flex items-center gap-2 mb-4 focus-neon rounded w-fit">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-cta-gradient shadow-neon-blue">
-                <Zap className="h-4 w-4 text-white" />
-              </span>
-              <span className="font-display text-sm font-black tracking-wider text-ink-primary">
-                MK<span className="text-neon-blue-light"> </span>Towfiq
-              </span>
-            </Link>
-            <p className="text-ink-secondary text-xs leading-relaxed mb-5 max-w-[220px]">
-              Premium website creation & video editing services — built to help your brand look sharp, load fast, and convert.
-            </p>
-
-            {/* Social row */}
-            <div className="flex items-center gap-3 flex-wrap">
-              {SOCIALS.map(({ icon: Icon, label, href, color }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className={`h-8 w-8 flex items-center justify-center rounded-lg glass-card text-ink-muted transition-all duration-200 ${color} focus-neon`}
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                </a>
-              ))}
-            </div>
+    <footer className="w-full bg-[#08080a] text-white pt-20 pb-16 px-6 md:px-12 border-white/5">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+        {/* Brand Column */}
+        <div className="md:col-span-4 space-y-4">
+          <div className="flex items-center gap-2.5">
+            <span className="w-3 h-3 rounded-full bg-white" />
+            <span className="font-display font-bold text-lg tracking-wider uppercase text-white">
+              MK Towfiq
+            </span>
           </div>
-
-          {/* Nav columns */}
-          {NAV_COLS.map((col) => (
-            <div key={col.heading}>
-              <p className="kicker mb-4">{col.heading}</p>
-              <ul className="space-y-2">
-                {col.links.map(({ label, to }) => (
-                  <li key={label}>
-                    <Link
-                      to={to}
-                      className="text-ink-secondary hover:text-neon-blue-light text-xs font-body transition-colors duration-200 focus-neon rounded"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Contact col */}
-          <div>
-            <p className="kicker mb-4">Contact</p>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="mailto:mkhamim1050100@gmail.com"
-                  className="text-ink-secondary hover:text-neon-blue-light text-xs transition-colors duration-200 focus-neon rounded block"
-                >
-                  mkhamim1050100@gmail.com
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://wa.me/1234567890"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-neon-whatsapp hover:opacity-80 transition-opacity focus-neon rounded"
-                >
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-neon-whatsapp/20 text-[10px]">💬</span>
-                  WhatsApp Us
-                </a>
-              </li>
-            </ul>
+          <p className="text-neutral-400 text-xs leading-relaxed max-w-sm">
+            Architecting cinema-grade audio-visuals, bespoke generative pipelines, and hyper-optimized digital platforms.
+          </p>
+          <div className="pt-2">
+            <span className="inline-block px-3 py-1 rounded-full border border-white/10 bg-white/[0.02] text-[11px] font-mono text-neutral-400">
+              English (Global)
+            </span>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="neon-divider my-8" />
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="font-mono text-[10px] text-ink-muted">
-            © {year} MK Towfiq — All rights reserved.
-          </p>
-          <div className="flex items-center gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="font-mono text-[10px] text-ink-muted hover:text-ink-secondary transition-colors duration-200 focus-neon rounded"
-              >
-                {item}
-              </a>
-            ))}
+        {/* Links Right Columns */}
+        <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8 font-sans">
+          <div className="flex flex-col gap-3 text-xs">
+            <span className="font-semibold text-pink-400 mb-1 font-display">IP & Media</span>
+            <a href="https://youtube.com/@SilentLegacyStudio" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-white transition-colors">Silent Legacy</a>
+            <a href="https://youtube.com/@FutureBanglaS" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-white transition-colors">Future Bangla</a>
+            <a href="https://youtube.com/@KatunTek" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-white transition-colors">KatunTek</a>
           </div>
+
+          <div className="flex flex-col gap-3 text-xs">
+            <span className="font-semibold text-pink-400 mb-1 font-display">Capabilities</span>
+            <span className="text-neutral-400">Generative AI</span>
+            <span className="text-neutral-400">Audio Synthesis</span>
+            <span className="text-neutral-400">React Architecture</span>
+            <span className="text-neutral-400">Color Mastering</span>
+          </div>
+
+          <div className="flex flex-col gap-3 text-xs">
+            <span className="font-semibold text-pink-400 mb-1 font-display">Platform</span>
+            <Link to={ROUTES.HOME} className="text-neutral-400 hover:text-white transition-colors">Overview</Link>
+            <Link to={ROUTES.SERVICES} className="text-neutral-400 hover:text-white transition-colors">Capabilities</Link>
+            <Link to={ROUTES.PORTFOLIO} className="text-neutral-400 hover:text-white transition-colors">Portfolio</Link>
+            <a href="/#booking" className="text-neutral-400 hover:text-white transition-colors">Consultation</a>
+          </div>
+
+          <div className="flex flex-col gap-3 text-xs">
+            <span className="font-semibold text-pink-400 mb-1 font-display">Connect</span>
+            <a href="mailto:mktowfiq.official@gmail.com" className="text-neutral-400 hover:text-white transition-colors">Direct Mail</a>
+            <a href="https://youtube.com/@SilentLegacyStudio" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-white transition-colors">YouTube</a>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-neutral-400 gap-4">
+        <span>� 2026 MK Towfiq. All rights reserved.</span>
+        <div className="flex gap-6">
+          <span>Privacy Architecture</span>
+          <span>Terms of Production</span>
         </div>
       </div>
     </footer>
   );
 }
+
+
+

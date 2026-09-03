@@ -2,136 +2,154 @@ import { useState } from 'react';
 
 const FAQS = [
   {
-    q: 'How quickly will I see revenue growth?',
-    a: "Most clients see meaningful CPM improvements within 30 days. Full revenue transformation — including brand deals and content compounding — typically peaks between months 3 and 6. Our 90-day guarantee means you'll hit at least 40% growth before month four.",
+    q: 'What is your operational model and collaboration format?',
+    a: 'Direct single-operator collaboration. Zero account managers, zero bloated meetings. Engagements operate on focused weekly sprints with dedicated GitHub repository access, private cloud staging environments, and direct asynchronous communication.',
+    color: '#0891b2',
+    border: 'rgba(8, 145, 178, 0.35)',
+    glow: 'rgba(8, 145, 178, 0.12)',
+    icon: (
+      <svg className="w-5 h-5 text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
   },
   {
-    q: 'Do you work with small channels?',
-    a: "We accept channels with 5,000+ subscribers. Below that threshold, the revenue optimization levers are limited. If you're under 5K, we recommend our free audit to map out your path to the threshold first.",
+    q: 'How are intellectual property (IP) and commercial rights handled?',
+    a: 'Full unencumbered commercial transfer upon delivery. You retain 100% legal ownership of source code repositories, generative weights, 3D assets, and lossless audio masters.',
+    color: '#d97706',
+    border: 'rgba(217, 119, 6, 0.35)',
+    glow: 'rgba(217, 119, 6, 0.12)',
+    icon: (
+      <svg className="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    ),
   },
   {
-    q: 'What niches do you specialize in?',
-    a: "We've achieved results across 28 niches. Our top-performing categories are Finance, Tech, Health & Fitness, Business, Real Estate, and Education — all high-CPM verticals. We also work in Entertainment, Gaming, and Lifestyle.",
+    q: 'What is the typical production timeline for bespoke builds?',
+    a: 'High-speed React platforms typically ship in 2-3 weeks. Multimodal generative series, custom acoustic scoring, and spatial visual assets require 3-6 weeks depending on pipeline complexity.',
+    color: '#e11d48',
+    border: 'rgba(225, 29, 72, 0.35)',
+    glow: 'rgba(225, 29, 72, 0.12)',
+    icon: (
+      <svg className="w-5 h-5 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
+      </svg>
+    ),
   },
   {
-    q: 'What does the 90-day revenue guarantee mean?',
-    a: "Simple: if your monthly revenue hasn't grown by at least 40% within 90 days of working with us, you don't pay for month 4. We absorb the cost. 98% of clients never trigger the guarantee.",
+    q: 'Do you offer custom scopes outside predefined capabilities?',
+    a: 'Yes. For speculative concepts, generative workflow installations, or specialized interactive exhibitions, custom technical architectures are engineered following discovery.',
+    color: '#059669',
+    border: 'rgba(5, 150, 105, 0.35)',
+    glow: 'rgba(5, 150, 105, 0.12)',
+    icon: (
+      <svg className="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    ),
   },
   {
-    q: "Will you take over my channel's creative direction?",
-    a: "No. You stay in full creative control. We provide strategy, data, systems, and distribution intelligence — you make the content. The best results come from combining your authentic voice with our growth architecture.",
-  },
-  {
-    q: 'How do the brand deals work?',
-    a: "We pitch your channel to brand partners who match your audience and niche. We handle the outreach, rate negotiation, and contract review. You approve every deal before it's signed. Growth and Elite plans include brand deal pipeline access.",
-  },
-  {
-    q: "What's included in the free audit?",
-    a: "A 45-minute strategy session where we analyse your current CPM, top videos, revenue gaps, and competitor landscape. You leave with a specific growth roadmap — whether you become a client or not.",
-  },
-  {
-    q: 'Do you offer long-term contracts?',
-    a: "No contracts. Month-to-month on all plans. We keep clients by delivering results, not by locking them in. That said, compounding growth means most clients stick with us for 12+ months.",
-  },
-  {
-    q: 'Can I upgrade or downgrade my plan?',
-    a: "Yes — plan changes take effect at the start of the next billing month. Most clients start on Growth and move to Elite once they see the ROI.",
-  },
-  {
-    q: 'What happens to my channel data?',
-    a: "Your data stays yours. We use YouTube Analytics read-only API access. We never post, modify, or delete content on your channel. Full data deletion available on request within 30 days of cancellation.",
+    q: 'How do we get started?',
+    a: 'Initiate direct communication through the inquiry portal. Specifications are audited within 24 hours to coordinate architecture and schedule delivery sprints.',
+    color: '#7c3aed',
+    border: 'rgba(124, 58, 237, 0.35)',
+    glow: 'rgba(124, 58, 237, 0.12)',
+    icon: (
+      <svg className="w-5 h-5 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m22 2-7 20-4-9-9-4Z" />
+        <path d="M22 2 11 13" />
+      </svg>
+    ),
   },
 ];
 
-function FAQItem({ faq, index }) {
-  const [open, setOpen] = useState(false);
+export default function FaqSection() {
+  const [openIdx, setOpenIdx] = useState(null);
 
   return (
-    <div
-      className="border-b border-line last:border-0 overflow-hidden"
-    >
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between gap-4 py-4 text-left focus-neon rounded group"
-        aria-expanded={open}
-      >
-        <span
-          className={`font-body text-sm font-semibold transition-colors duration-200 ${
-            open ? 'text-neon-blue-light' : 'text-ink-primary group-hover:text-neon-blue-light'
-          }`}
-        >
-          {faq.q}
-        </span>
+    <section className="relative w-full bg-[#fbf9f6] text-[#121110] py-32 px-6 md:px-12 overflow-hidden ">
+      {/* Precision World Mesh Coordinates (60 FPS) */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          backgroundImage: `radial-gradient(circle at 50% 50%, rgba(0,0,0,0.06) 1.5px, transparent 1.5px)`,
+          backgroundSize: '36px 36px',
+        }}
+      />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-neutral-300/40 pointer-events-none" />
 
-        {/* Neon expand icon */}
-        <span
-          className="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full transition-all duration-300"
-          style={{
-            border: `1px solid ${open ? '#4da6ff' : 'rgba(77,166,255,0.3)'}`,
-            background: open ? 'rgba(0,102,255,0.15)' : 'transparent',
-            transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
-            boxShadow: open ? '0 0 10px rgba(0,102,255,0.35)' : 'none',
-          }}
-        >
-          <svg
-            className="h-3 w-3"
-            viewBox="0 0 12 12"
-            fill="none"
-            style={{ color: open ? '#4da6ff' : '#475569' }}
-          >
-            <path
-              d="M6 2v8M2 6h8"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        </span>
-      </button>
-
-      {/* Answer — CSS height transition */}
-      <div
-        className="overflow-hidden transition-all duration-300 ease-in-out"
-        style={{ maxHeight: open ? '300px' : '0px' }}
-      >
-        <p className="text-ink-secondary text-sm leading-relaxed pb-4 pr-10">
-          {faq.a}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-export default function FAQSection() {
-  return (
-    <section id="faq" className="section-padding border-t border-line">
-      <div className="container-shell">
-        <div className="text-center mb-12">
-          <p className="kicker-purple mb-2">❓ FAQ</p>
-          <h2 className="text-gradient-hero mb-4">Objection Crusher</h2>
-          <p className="text-ink-secondary text-sm max-w-lg mx-auto">
-            Every question we've ever heard — answered honestly.
-          </p>
+      <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Section Header with Swiss Clean Font */}
+        <div className="text-center mb-16">
+          <span className="inline-block text-[11px] font-mono tracking-[0.25em] uppercase text-neutral-500 font-semibold mb-3">
+            Inquiries & Protocol
+          </span>
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-[-0.04em] text-neutral-950 font-sans leading-none">
+            Frequently Addressed
+          </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto glass-panel p-6 md:p-8">
-          {FAQS.map((faq, i) => (
-            <FAQItem key={i} faq={faq} index={i} />
-          ))}
-        </div>
+        {/* Wide Full-Density FAQ Stack */}
+        <div className="space-y-4">
+          {FAQS.map((faq, idx) => {
+            const isOpen = openIdx === idx;
+            return (
+              <div
+                key={idx}
+                className="group rounded-3xl bg-white transition-all duration-300 overflow-hidden"
+                style={{
+                  border: `1.5px solid ${isOpen ? faq.color : faq.border}`,
+                  boxShadow: isOpen ? `0 14px 35px -5px ${faq.glow}` : `0 4px 18px -4px ${faq.glow}`,
+                }}
+              >
+                <button
+                  onClick={() => setOpenIdx(isOpen ? null : idx)}
+                  className="w-full py-6 px-7 sm:px-9 flex items-center justify-between text-left gap-6"
+                >
+                  <div className="flex items-center gap-5">
+                    <div 
+                      className="shrink-0 transition-transform duration-300 group-hover:scale-110"
+                      style={{ filter: `drop-shadow(0 0 6px ${faq.color}80)` }}
+                    >
+                      {faq.icon}
+                    </div>
 
-        <div className="text-center mt-8">
-          <p className="text-ink-muted text-xs mb-4">
-            Still have questions?
-          </p>
-          <a
-            href="mailto:hello@yta.agency"
-            className="btn-ghost text-sm px-7 py-3"
-          >
-            Email Us Directly →
-          </a>
+                    <span className="text-lg sm:text-xl font-bold tracking-tight text-neutral-900 font-sans">
+                      {faq.q}
+                    </span>
+                  </div>
+
+                  <span
+                    className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm font-mono font-bold transition-all duration-300 shadow-sm"
+                    style={{
+                      backgroundColor: isOpen ? faq.color : '#f3f1ec',
+                      color: isOpen ? '#ffffff' : '#666666',
+                      transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+                    }}
+                  >
+                    +
+                  </span>
+                </button>
+
+                {isOpen && (
+                  <div className="px-7 sm:px-9 pb-7 pt-2 text-base sm:text-lg text-neutral-600 font-normal leading-relaxed  pl-16 sm:pl-20 font-sans">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
+
+
+

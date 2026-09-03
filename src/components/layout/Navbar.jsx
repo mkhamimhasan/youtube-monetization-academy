@@ -1,75 +1,72 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
-import { ROUTES, ANCHORS } from '@/config/routes';
+import { Menu, X } from 'lucide-react';
+import { ROUTES } from '@/config/routes';
 import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
-  { label: 'Home',     to: ROUTES.HOME },
-  { label: 'About',   to: ROUTES.ABOUT },
-  { label: 'Services',to: ROUTES.SERVICES },
-  { label: 'Portfolio',to: ROUTES.PORTFOLIO },
-  { label: 'Pricing', to: ROUTES.PRICING },
+  { label: 'Overview',     to: ROUTES.HOME },
+  { label: 'Capabilities', to: ROUTES.SERVICES },
+  { label: 'Portfolio',    to: ROUTES.PORTFOLIO },
 ];
 
 export default function Navbar() {
-  const [open, setOpen]       = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close mobile menu on outside click
   useEffect(() => {
     if (!open) return;
-    const handler = (e) => { if (!navRef.current?.contains(e.target)) setOpen(false); };
+    const handler = (e) => {
+      if (!navRef.current?.contains(e.target)) setOpen(false);
+    };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, [open]);
-
-  const linkBase =
-    'font-mono text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-500 ease-out';
-  const linkActive  = 'text-cyan-400';
-  const linkInactive = 'text-white hover:text-cyan-400';
 
   return (
     <header
       ref={navRef}
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out',
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled
-          ? 'glass-nav'
-          : 'bg-transparent border-b border-transparent'
+          ? 'bg-[#08080c]/80 backdrop-blur-xl border-b border-white/10 shadow-2xl py-3'
+          : 'bg-transparent border-b border-transparent py-5'
       )}
     >
-      <div className="container-shell flex h-16 items-center justify-between">
-        {/* Logo */}
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        {/* Clean Logo */}
         <Link
           to={ROUTES.HOME}
-          className="flex items-center gap-2 group focus-neon rounded"
+          className="flex items-center gap-3 group"
           onClick={() => setOpen(false)}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-cta-gradient shadow-neon-blue">
-            <Zap className="h-4 w-4 text-white" />
-          </span>
-          <span className="font-display text-sm font-black tracking-wider text-ink-primary">
-            MK<span className="text-neon-blue-light"> </span>Towfiq
+          <span className="w-2.5 h-2.5 rounded-full bg-white group-hover:scale-125 transition-transform" />
+          <span className="font-display font-bold text-sm tracking-widest uppercase text-white">
+            MK Towfiq <span className="text-white/40 font-mono text-xs font-normal">/ Studio</span>
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-7">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(({ label, to }) => (
             <NavLink
               key={to}
               to={to}
               end={to === ROUTES.HOME}
               className={({ isActive }) =>
-                cn(linkBase, isActive ? linkActive : linkInactive)
+                cn(
+                  'text-xs font-mono tracking-widest uppercase transition-all duration-200',
+                  isActive
+                    ? 'text-white font-semibold'
+                    : 'text-neutral-400 hover:text-white'
+                )
               }
             >
               {label}
@@ -77,30 +74,30 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Action Button */}
+        <div className="hidden md:flex items-center gap-4">
           <a
-            href={ANCHORS.APPLY}
-            className="glass-button text-xs px-5 py-2.5 focus-neon rounded-lg text-white font-bold"
+            href="/#booking"
+            className="px-5 py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black text-white text-xs font-mono uppercase tracking-wider transition-all duration-200"
           >
-            Free Audit →
+            Consultation ↗
           </a>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-ink-secondary hover:text-ink-primary transition-colors duration-500 ease-out focus-neon rounded p-1"
+          className="md:hidden text-neutral-300 hover:text-white p-1"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Close menu' : 'Open menu'}
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden glass-nav">
-          <div className="container-shell flex flex-col gap-1 py-4">
+        <div className="md:hidden bg-[#08080c]/95 backdrop-blur-2xl border-b border-white/10 px-6 py-6 animate-in fade-in slide-in-from-top-4">
+          <div className="flex flex-col gap-4">
             {NAV_LINKS.map(({ label, to }) => (
               <NavLink
                 key={to}
@@ -109,9 +106,8 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   cn(
-                    linkBase,
-                    'block py-3 border-b border-line-faint',
-                    isActive ? linkActive : linkInactive
+                    'text-sm font-mono tracking-widest uppercase py-2 border-b border-white/5',
+                    isActive ? 'text-white font-bold' : 'text-neutral-400'
                   )
                 }
               >
@@ -119,11 +115,11 @@ export default function Navbar() {
               </NavLink>
             ))}
             <a
-              href={ANCHORS.APPLY}
+              href="/#booking"
               onClick={() => setOpen(false)}
-              className="glass-button mt-3 text-xs w-full text-center py-3 focus-neon rounded-lg text-white font-bold"
+              className="mt-2 text-center py-3 rounded-full bg-white text-black text-xs font-mono uppercase tracking-wider font-semibold"
             >
-              Get Free Audit →
+              Book Consultation ↗
             </a>
           </div>
         </div>
@@ -131,3 +127,5 @@ export default function Navbar() {
     </header>
   );
 }
+
+

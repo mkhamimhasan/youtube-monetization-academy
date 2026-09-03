@@ -1,6 +1,6 @@
 export default function MissionVisionSection() {
   return (
-    <section className="section-padding border-t border-line relative overflow-hidden">
+    <section className="section-padding  relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 50%, rgba(124,58,237,0.05) 0%, transparent 70%)' }}
@@ -43,3 +43,6 @@ export default function MissionVisionSection() {
     </section>
   );
 }
+
+
+

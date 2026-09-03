@@ -25,7 +25,7 @@ function StatBlock({ stat }) {
 
 export default function StatsSection() {
   return (
-    <section className="section-padding border-t border-line">
+    <section className="section-padding ">
       <div className="container-shell">
         <div className="text-center mb-12">
           <p className="kicker justify-center inline-flex mb-2">📈 What You Get</p>
@@ -40,3 +40,5 @@ export default function StatsSection() {
     </section>
   );
 }
+
+

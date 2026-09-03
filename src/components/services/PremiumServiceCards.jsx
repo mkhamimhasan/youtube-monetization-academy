@@ -85,7 +85,7 @@ function ServiceCard({ service }) {
 
 export default function PremiumServiceCards() {
   return (
-    <section className="section-padding border-t border-line" id="services-detail">
+    <section className="section-padding " id="services-detail">
       <div className="container-shell">
         <div className="text-center mb-12">
           <p className="kicker-purple justify-center inline-flex mb-2">💠 Premium Services</p>
@@ -100,3 +100,6 @@ export default function PremiumServiceCards() {
     </section>
   );
 }
+
+
+

@@ -14,7 +14,7 @@
   --color-space-panel: #0f172a;
 
   /* borders */
-  --color-line: #1e3a6e;
+  --color-line: transparent;
   --color-line-soft: rgba(255, 255, 255, 0.07);
 
   /* neon accents */
@@ -60,7 +60,7 @@ html {
 /* Base background: gradient + very light purple/cyan glow, per spec.
    background-attachment: fixed keeps the glow stable while scrolling. */
 body {
-  background-color: var(--color-space);
+  background-color: #eceae5;
   background-image:
     radial-gradient(ellipse 70% 45% at 50% -8%, rgba(124, 58, 237, 0.07), transparent 70%),
     radial-gradient(ellipse 55% 40% at 100% 100%, rgba(0, 212, 255, 0.05), transparent 70%),
@@ -286,7 +286,7 @@ p {
   background: rgba(8, 15, 34, 0.55);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
 }
 
 .glass-button {
@@ -310,3 +310,11 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all var(--duration-standard) var(--ease-out);
 }
+.border-t {
+  border-top-color: transparent !important;
+}
+* + section {
+  border-top: none !important;
+}
+section { border-top: none !important; border-bottom: none !important; }
+

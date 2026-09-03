@@ -25,7 +25,7 @@ export default function ContactPage() {
       />
       <ContactHero />
 
-      <section className="section-padding border-t border-line" id="apply-form">
+      <section className="section-padding " id="apply-form">
         <div className="container-shell">
           <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8">
             <div>
@@ -57,3 +57,6 @@ export default function ContactPage() {
     </>
   );
 }
+
+
+
