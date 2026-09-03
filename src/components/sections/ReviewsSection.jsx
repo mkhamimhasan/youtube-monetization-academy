@@ -87,7 +87,38 @@
 
 export default function ReviewsSection() {
   return (
-    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c] relative z-10 pt-10 md:pt-20 pb-16 bg-[#08080c]" style={{ clipPath: "ellipse(180% 100% at 50% 100%)" }}>
+    <section className="w-full bg-[#0c0b0e] text-white py-28 px-6 md:px-12  relative z-10 overflow-visible relative z-10 -mt-16 md:-mt-24 pt-20 md:pt-28 pb-16 bg-[#08080c] relative z-10 -mt-10 md:-mt-24 pt-16 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(340%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] relative z-10 -mt-6 md:-mt-24 pt-10 md:pt-28 pb-16 bg-[#08080c] [clip-path:ellipse(750%_100%_at_50%_100%)] md:[clip-path:ellipse(180%_100%_at_50%_100%)] magnific-responsive-dome relative z-10 pb-16 bg-[#08080c] relative z-10 pt-10 md:pt-20 pb-16 bg-[#08080c] yta-reviews-dome relative z-10 pb-16 bg-[#08080c]" >
+      <style>{`
+        @media (max-width: 767px) {
+          .yta-reviews-dome {
+            clip-path: none !important;
+            border-top-left-radius: 24px !important;
+            border-top-right-radius: 24px !important;
+            margin-top: 0 !important;
+            padding-top: 3.5rem !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .yta-reviews-dome {
+            clip-path: ellipse(180% 100% at 50% 100%) !important;
+            margin-top: -6rem !important;
+            padding-top: 7rem !important;
+          }
+        }
+      `}</style>
+      {/* Dynamic Aura & Nebula */}
+      <div 
+        className="absolute -top-24 md:-top-40 left-1/2 -translate-x-1/2 w-[90vw] md:w-[1200px] h-[220px] md:h-[450px] rounded-full blur-[60px] md:blur-[90px] opacity-75 md:opacity-80 pointer-events-none -z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(236,72,153,0.85) 0%, rgba(168,85,247,0.55) 45%, rgba(99,102,241,0.2) 65%, transparent 80%)'
+        }}
+      />
+      <div 
+        className="hidden md:block absolute -top-8 left-1/2 -translate-x-1/2 w-[600px] max-w-[85vw] h-[80px] rounded-full blur-[30px] opacity-75 pointer-events-none z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(244,114,182,0.5) 40%, transparent 80%)'
+        }}
+      />
       {/* ১. অ্যাম্বিয়েন্ট অরোরা গ্লো */}
       <div 
         className="absolute -top-32 md:-top-44 left-1/2 -translate-x-1/2 w-[100vw] md:w-[1200px] h-[300px] md:h-[450px] rounded-full blur-[60px] md:blur-[100px] opacity-80 pointer-events-none -z-10 animate-pulse"
@@ -262,6 +293,7 @@ export default function ReviewsSection() {
     </section>
   );
 }
+
 
 
 
