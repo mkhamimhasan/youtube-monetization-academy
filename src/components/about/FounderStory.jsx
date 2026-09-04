@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 
 function useReveal() {
   const ref = useRef(null);
@@ -28,7 +28,7 @@ const MILESTONES = [
   { year: '2019', event: 'Started optimizing a single 40K-subscriber finance channel as a side project.' },
   { year: '2021', event: 'Crossed 50 managed channels after word-of-mouth referrals from early clients.' },
   { year: '2023', event: 'Built the proprietary CPM intelligence dashboard now used across every client account.' },
-  { year: '2026', event: '240+ channels, 28 niches, 14 languages — and a 90-day revenue guarantee we still stand behind.' },
+  { year: '2026', event: '240+ channels, 28 niches, 14 languages â€” and a 90-day revenue guarantee we still stand behind.' },
 ];
 
 export default function FounderStory() {
@@ -38,9 +38,9 @@ export default function FounderStory() {
     <section className="section-padding ">
       <div className="container-shell">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-          {/* Left — narrative */}
+          {/* Left â€” narrative */}
           <div ref={textRef}>
-            <p className="kicker-purple mb-3">✦ Founder Story</p>
+            <p className="kicker-purple mb-3">âœ¦ Founder Story</p>
             <h2 className="mb-5">
               <span className="text-ink-primary">From One Channel</span>
               <br />
@@ -48,7 +48,7 @@ export default function FounderStory() {
             </h2>
             <div className="space-y-4 text-ink-secondary text-sm leading-relaxed max-w-lg">
               <p>
-                YTA.Agency didn't start as an agency. It started as a spreadsheet — a founder tracking CPM
+                MK Towfiq Studio operates at the intersection of cinema-grade visuals, generative intelligence, and sound architecture.
                 fluctuations for a friend's finance channel, trying to figure out why nearly identical videos
                 earned wildly different ad revenue.
               </p>
@@ -59,13 +59,13 @@ export default function FounderStory() {
               </p>
               <p>
                 So we built our own. What began as an internal tool for one client is now the intelligence
-                layer behind every channel we manage — and the reason our clients grow revenue faster than
+                layer behind every channel we manage â€” and the reason our clients grow revenue faster than
                 their subscriber count.
               </p>
             </div>
           </div>
 
-          {/* Right — milestone timeline */}
+          {/* Right â€” milestone timeline */}
           <div className="glass-panel p-6 md:p-8">
             <p className="font-mono text-[10px] uppercase tracking-widest text-neon-blue-light mb-6">
               Milestones
@@ -98,6 +98,7 @@ export default function FounderStory() {
     </section>
   );
 }
+
 
 
 

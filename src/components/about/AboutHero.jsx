@@ -1,4 +1,4 @@
-export default function AboutHero() {
+﻿export default function AboutHero() {
   return (
     <section className="relative overflow-hidden border-b border-line pt-36 pb-20 md:pt-44 md:pb-28">
       {/* Ambient glow */}
@@ -9,19 +9,20 @@ export default function AboutHero() {
         }}
       />
       <div className="container-shell relative z-10 text-center">
-        <p className="kicker justify-center inline-flex mb-4">🚀 About YTA.Agency</p>
+        <p className="kicker justify-center inline-flex mb-4">ðŸš€ About YTA.Agency</p>
         <h1 className="mb-5">
           <span className="text-gradient-hero">We're Obsessed With</span>
           <br />
           <span className="text-ink-primary">One Number: Your Revenue</span>
         </h1>
         <p className="text-ink-secondary text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-          Founded by creators who got tired of watching great channels leave money on the table, YTA.Agency exists to turn views into a real, defensible revenue engine — for 240+ channels and counting.
+          Architected for visionary creators and modern narrative universes.
         </p>
       </div>
     </section>
   );
 }
+
 
 
 
