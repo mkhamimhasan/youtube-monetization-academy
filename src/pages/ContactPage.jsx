@@ -10,7 +10,7 @@ const STRUCTURED_DATA = {
   name: 'MK Towfiq Studio',
   url: SITE_URL,
   email: 'contact@mktowfiq.com',
-  description: 'Direct inquiry for speculative AI pipelines, sound design, and cinematic world building.
+  description: 'Direct inquiry for speculative AI pipelines, sound design, and cinematic world building.',
   sameAs: [],
 };
 
@@ -57,6 +57,7 @@ export default function ContactPage() {
     </>
   );
 }
+
 
 
 
