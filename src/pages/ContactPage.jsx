@@ -19,7 +19,7 @@ export default function ContactPage() {
     <>
       <SEO
         title="Contact"
-        description="Direct Inquiry // Book an architectural consultation or creative production slot.
+        description="Direct Inquiry // Book an architectural consultation or creative production slot."
         path="/contact"
         structuredData={STRUCTURED_DATA}
       />
@@ -57,6 +57,7 @@ export default function ContactPage() {
     </>
   );
 }
+
 
 
 
