@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+﻿import { useEffect } from 'react';
 
-const SITE_NAME = 'YTA.Agency';
-const SITE_URL = 'https://ytaagency.com';
+const SITE_NAME = 'MK Towfiq Studio';
+const SITE_URL = 'https://mktowfiq.vercel.app';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 function upsertMeta(attr, key, content) {
@@ -38,10 +38,10 @@ function upsertJsonLd(id, data) {
 }
 
 /**
- * SEO — drops per-page <title>, meta description, Open Graph, Twitter Card,
+ * SEO â€” drops per-page <title>, meta description, Open Graph, Twitter Card,
  * canonical link, and JSON-LD structured data into <head>.
  *
- * No external dependency (react-helmet-async isn't installed) — this hook
+ * No external dependency (react-helmet-async isn't installed) â€” this hook
  * imperatively syncs document.head on mount / whenever props change, and
  * is safe with client-side routing since it re-runs on every page mount.
  */
@@ -53,7 +53,7 @@ export default function SEO({
   structuredData = null,
 }) {
   useEffect(() => {
-    const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — YouTube Monetization Agency`;
+    const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} â€” YouTube Monetization Agency`;
     document.title = fullTitle;
 
     upsertMeta('name', 'description', description);
@@ -82,6 +82,7 @@ export default function SEO({
 }
 
 export { SITE_NAME, SITE_URL, DEFAULT_IMAGE };
+
 
 
 

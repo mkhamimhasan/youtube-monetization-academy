@@ -1,7 +1,7 @@
-import { Mail, MessageCircle, Clock, Youtube, Instagram, Linkedin, Twitter } from 'lucide-react';
+﻿import { Mail, MessageCircle, Clock, Youtube, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const CONTACT_ITEMS = [
-  { icon: Mail, label: 'Email', value: 'hello@yta.agency', href: 'mailto:hello@yta.agency', color: '#4da6ff' },
+  { icon: Mail, label: 'Email', value: 'contact@mktowfiq.com', href: 'mailto:contact@mktowfiq.com', color: '#4da6ff' },
   { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with us directly', href: 'https://wa.me/1234567890', color: '#25d366' },
   { icon: Clock, label: 'Response Time', value: 'Within 1 business day', href: null, color: '#fbbf24' },
 ];
@@ -64,6 +64,7 @@ export default function ContactInfo() {
     </div>
   );
 }
+
 
 
 
